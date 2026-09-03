@@ -11,6 +11,6 @@ public class BlixtHackContextFactory : IDesignTimeDbContextFactory<BlixtHackDbCo
             .UseSqlServer(config.GetConnectionString("DefaultConnection"))
             .Options;
 
-        return new BlixtHackDbContext();
+        return new BlixtHackDbContext(options);
     }
 }
