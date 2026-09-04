@@ -1,0 +1,25 @@
+﻿using ClassLibrary.Data;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ClassLibrary.Services
+{
+    public class CategoryService : ICategoryService
+    {
+        private readonly BlixtHackDbContext _context;
+        public CategoryService(BlixtHackDbContext context)
+        {
+            _context = context;
+        }
+        public IEnumerable<Category> GetAllCategories()
+        {
+            var categories = _context.Categories.Select(c => new Category
+            {
+                Id = c.Id,
+                Title = c.Title
+            });
+            return categories;
+        }
+    }
+}
