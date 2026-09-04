@@ -1,4 +1,5 @@
 using ClassLibrary.Data;
+using ClassLibrary.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace OCICE_BlixtHack
@@ -15,7 +16,7 @@ namespace OCICE_BlixtHack
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddTransient<DataInitializer>();
-
+            builder.Services.AddTransient<ICategoryService, CategoryService>();
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope()) {
