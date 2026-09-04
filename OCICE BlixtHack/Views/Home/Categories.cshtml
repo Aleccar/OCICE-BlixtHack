@@ -1,0 +1,15 @@
+﻿@model CategoriesVM
+@{
+    ViewData["Title"] = "Kategorier";
+}
+<section>
+    <div>
+                <p>Kategori x</p>
+        @{
+            foreach (var category in Model.Categories)
+            {
+                @category.Title
+            }
+        }
+    </div>
+</section>
