@@ -25,7 +25,12 @@ namespace OCICE_BlixtHack.Controllers
         {
             return View();
         }
-
+        public IActionResult Categories()
+        {
+            var categoryVM = new CategoriesVM();
+            categoryVM.Categories = _categoryService.GetAllCategories();
+            return View(categoryVM);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
