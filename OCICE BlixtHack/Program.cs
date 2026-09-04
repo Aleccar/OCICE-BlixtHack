@@ -19,7 +19,9 @@ namespace OCICE_BlixtHack
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope()) {
-                scope.ServiceProvider.GetService<DataInitializer>().MigrateAndSeed();
+                scope.ServiceProvider.GetService<DataInitializer>().Migrate();
+                scope.ServiceProvider.GetService<DataInitializer>().Seed();
+                
             }
 
             // Configure the HTTP request pipeline.
