@@ -1,7 +1,7 @@
 ﻿@model ThreadsVM
 
 @{
- //   Layout = _Layout;
+    //   Layout = _Layout;
 }
 
 <!DOCTYPE html>
@@ -13,14 +13,23 @@
 <body>
 <div>
     <h1>@Model.CategoryName</h1>
-    
-    <ul>
+
+    <table>
+        <tr>
+            <th>Rubrik</th>
+            <th>Skrivet av</th>
+            <th>Datum</th>
+        </tr>
         @foreach (var thread in Model.Threads)
         {
-            <li>@thread.Title</li>
+            <tr>
+                <td>@thread.Title</td>
+                <td>@thread.Alias</td>
+                <td>@thread.CreatedAt</td>
+            </tr>
         }
-    </ul>
-    
+    </table>
+
     Threads: @Model.Threads.Count()
 </div>
 </body>
