@@ -37,12 +37,10 @@
         </nav>
     </header>
     <div class="layout">
-        <aside>
-            <h2>Kategorier</h2>
+    <aside class="sidebar">
+        @await Component.InvokeAsync("CategoriesSidebar")
+    </aside>
 
-            <partial name="_CategoriesSidebarMenu" model="Model" />
-
-        </aside>
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
