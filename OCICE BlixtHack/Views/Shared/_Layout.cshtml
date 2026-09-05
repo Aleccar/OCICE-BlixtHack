@@ -11,10 +11,11 @@
 </head>
 <body>
     <header>
+        <h1 class="display-4 text-center">BlixtHack</h1>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Blixthack</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+@*                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Blixthack</a>
+ *@                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,16 +30,24 @@
                         <li class="nat-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Categories">Kategorier</a>
                         </li>
-                            
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="layout">
+        <aside>
+            <h2>Kategorier</h2>
+
+            <partial name="_CategoriesSidebarMenu" model="Model" />
+
+        </aside>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
