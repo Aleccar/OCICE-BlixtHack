@@ -17,6 +17,7 @@ namespace OCICE_BlixtHack
 
             builder.Services.AddTransient<DataInitializer>();
             builder.Services.AddTransient<ICategoryService, CategoryService>();
+            builder.Services.AddTransient<IThreadService, ThreadService>();
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope()) {
@@ -41,7 +42,7 @@ namespace OCICE_BlixtHack
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Home}/{action=Index}/{categoryId?}")
                 .WithStaticAssets();
 
             app.Run();
