@@ -12,9 +12,10 @@ namespace OCICE_BlixtHack.Controllers
         private readonly BlixtHackDbContext _context;
         private readonly IThreadService _threadService;
 
-        public HomeController(ICategoryService categoryService, BlixtHackDbContext context)
+        public HomeController(ICategoryService categoryService, BlixtHackDbContext context, IThreadService threadService)
         {
             _categoryService = categoryService;
+            _threadService = threadService;
             _context = context;
         }
         public IActionResult Index()
@@ -35,6 +36,7 @@ namespace OCICE_BlixtHack.Controllers
             return View(categoryVM);
         }
 
+        [HttpGet]
         public IActionResult Category(int categoryId) {
             var threadsVM = new ThreadsVM {
                 Threads = _threadService.GetAllThreadsByCategoryId(categoryId),
