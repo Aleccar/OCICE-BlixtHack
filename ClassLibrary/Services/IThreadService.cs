@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace ClassLibrary.Services;
 
-namespace ClassLibrary.Services
-{
-    internal interface IThreadService
-    {
-    }
+public interface IThreadService {
+    IEnumerable<Data.Thread> GetAllThreadsByCategoryId(int id);
+    IEnumerable<Data.Thread> GetRecentThreads();
 }
