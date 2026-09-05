@@ -18,7 +18,9 @@ namespace OCICE_BlixtHack.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var categoryVM = new CategoriesVM();
+            categoryVM.Categories = _categoryService.GetAllCategories();
+            return View(categoryVM);
         }
 
         public IActionResult Privacy()

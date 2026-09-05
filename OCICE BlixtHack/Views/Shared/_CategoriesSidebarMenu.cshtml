@@ -1,0 +1,10 @@
+﻿@model CategoriesVM
+
+<div class="sidebar-menu">
+    <ul>
+    @foreach (var category in Model.Categories)
+        {
+                <li class="list-group-item">@category.Title</li>
+        }
+    </ul>
+</div>
