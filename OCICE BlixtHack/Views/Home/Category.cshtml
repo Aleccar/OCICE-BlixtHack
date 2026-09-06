@@ -1,0 +1,29 @@
+﻿@model ThreadsVM
+
+<!DOCTYPE html>
+
+<html lang="se-sv">
+<head>
+    <title>@Model.CategoryName</title>
+    <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true"/>
+</head>
+<body>
+<div>
+    <h1>@Model.CategoryName</h1>
+    <table>
+        <tr>
+            <th>Rubrik</th>
+            <th>Skrivet av</th>
+            <th>Datum</th>
+        </tr>
+        @foreach (var thread in Model.Threads) {
+            <tr>
+                <td>@thread.Title</td>
+                <td>@thread.Alias</td>
+                <td>@thread.CreatedAt</td>
+            </tr>
+        }
+    </table>
+</div>
+</body>
+</html>

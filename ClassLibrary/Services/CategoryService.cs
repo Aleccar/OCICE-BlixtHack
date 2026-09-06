@@ -21,5 +21,9 @@ namespace ClassLibrary.Services
             });
             return categories;
         }
+
+        public string GetCategoryNameById(int categoryId) {
+            return _context.Categories.FirstOrDefault(c => c.Id == categoryId).Title;
+        }
     }
 }

@@ -10,10 +10,12 @@ namespace OCICE_BlixtHack.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly BlixtHackDbContext _context;
+        private readonly IThreadService _threadService;
 
-        public HomeController(ICategoryService categoryService, BlixtHackDbContext context)
+        public HomeController(ICategoryService categoryService, BlixtHackDbContext context, IThreadService threadService)
         {
             _categoryService = categoryService;
+            _threadService = threadService;
             _context = context;
         }
         public IActionResult Index()
@@ -34,10 +36,21 @@ namespace OCICE_BlixtHack.Controllers
             return View(categoryVM);
         }
 
+        [HttpGet]
+        public IActionResult Category(int categoryId) {
+            var threadsVM = new ThreadsVM {
+                Threads = _threadService.GetAllThreadsByCategoryId(categoryId),
+                CategoryName = _categoryService.GetCategoryNameById(categoryId),
+            };
+
+            return View(threadsVM);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
 }
