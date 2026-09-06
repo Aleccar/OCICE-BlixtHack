@@ -1,9 +1,5 @@
 ﻿@model ThreadsVM
 
-@{
-    //   Layout = _Layout;
-}
-
 <!DOCTYPE html>
 
 <html lang="se-sv">
@@ -20,8 +16,7 @@
             <th>Skrivet av</th>
             <th>Datum</th>
         </tr>
-        @foreach (var thread in Model.Threads)
-        {
+        @foreach (var thread in Model.Threads) {
             <tr>
                 <td>@thread.Title</td>
                 <td>@thread.Alias</td>
