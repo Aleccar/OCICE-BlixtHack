@@ -5,25 +5,26 @@
 <html lang="se-sv">
 <head>
     <title>@Model.CategoryName</title>
-    <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
 </head>
 <body>
-<div>
-    <h1>@Model.CategoryName</h1>
-    <table>
-        <tr>
-            <th>Rubrik</th>
-            <th>Skrivet av</th>
-            <th>Datum</th>
-        </tr>
-        @foreach (var topic in Model.Topics) {
+    <div>
+        <h1>@Model.CategoryName</h1>
+        <table>
             <tr>
-                <td>@topic.Title</td>
-                <td>@topic.Alias</td>
-                <td>@topic.CreatedAt</td>
+                <th>Rubrik</th>
+                <th>Skrivet av</th>
+                <th>Datum</th>
             </tr>
-        }
-    </table>
-</div>
+            @foreach (var topic in Model.Topics)
+            {
+                <tr>
+                    <td><a asp-action="Topic" asp-controller="Home" asp-route-categoryId="@topic.Id">@topic.Title</a></td>
+                    <td>@topic.Alias</td>
+                    <td>@topic.CreatedAt</td>
+                </tr>
+            }
+        </table>
+    </div>
 </body>
 </html>
