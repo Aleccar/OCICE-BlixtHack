@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ClassLibrary.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassLibrary.Data;
 

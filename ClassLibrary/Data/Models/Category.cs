@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClassLibrary.Data;
+namespace ClassLibrary.Data.Models;
 
 public class Category {
     public int Id { get; set; }
