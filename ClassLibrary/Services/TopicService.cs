@@ -6,8 +6,8 @@ public class TopicService(BlixtHackDbContext context) : ITopicService {
     private readonly BlixtHackDbContext _context = context;
 
     public IEnumerable<Topic> GetAllTopicsByCategoryId(int id) {
-        var threads = _context.Topics.Where(t => t.TopicCategory.Id == id);
-        return threads;
+        var topics = _context.Topics.Where(t => t.TopicCategory.Id == id);
+        return topics;
     }
 
     public IEnumerable<Topic> GetRecentTopics() {

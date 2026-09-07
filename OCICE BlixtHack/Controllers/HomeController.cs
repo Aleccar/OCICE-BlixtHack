@@ -38,12 +38,12 @@ namespace OCICE_BlixtHack.Controllers
 
         [HttpGet]
         public IActionResult Category(int categoryId) {
-            var threadsVM = new TopicVM {
+            var topicsVM = new TopicVM {
                 Topics = _topicService.GetAllTopicsByCategoryId(categoryId),
                 CategoryName = _categoryService.GetCategoryNameById(categoryId),
             };
 
-            return View(threadsVM);
+            return View(topicsVM);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

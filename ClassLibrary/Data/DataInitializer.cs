@@ -41,7 +41,7 @@ public class DataInitializer
                 Title = "Övrigt"
             }
         };
-        var threads = new List<Topic>
+        var topics = new List<Topic>
         {
             new()
             {
@@ -95,7 +95,7 @@ public class DataInitializer
 
         if (!_context.Topics.Any())
         {
-            _context.Topics.AddRange(threads);
+            _context.Topics.AddRange(topics);
         }
         _context.SaveChanges();
     }
