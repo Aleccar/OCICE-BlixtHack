@@ -2,11 +2,11 @@
 
 namespace ClassLibrary.Data;
 
-public class Thread {
+public class Topic {
     public int Id { get; set; }
 
-    public required Category ThreadCategory { get; set; }
-    public List<ThreadResponse> ThreadResponses { get; set; } = new();
+    public required Category TopicCategory { get; set; }
+    public List<TopicResponse> TopicResponses { get; set; } = new();
 
     [Required] [MaxLength(100)] public string Title { get; set; }
 
@@ -14,5 +14,7 @@ public class Thread {
 
     [Required] [MaxLength(50)] public string Alias { get; set; }
 
+    [Required] public int Views  { get; set; }
+    
     [Required] public DateTime CreatedAt { get; set; }
 }
