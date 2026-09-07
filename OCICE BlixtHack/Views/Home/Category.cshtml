@@ -1,4 +1,4 @@
-﻿@model ThreadsVM
+﻿@model TopicVM
 
 <!DOCTYPE html>
 
@@ -16,7 +16,7 @@
             <th>Skrivet av</th>
             <th>Datum</th>
         </tr>
-        @foreach (var thread in Model.Threads) {
+        @foreach (var thread in Model.Topics) {
             <tr>
                 <td>@thread.Title</td>
                 <td>@thread.Alias</td>

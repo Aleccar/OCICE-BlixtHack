@@ -4,8 +4,8 @@ namespace ClassLibrary.Data;
 
 public class BlixtHackDbContext : DbContext {
     public DbSet<Category> Categories { get; set; }
-    public DbSet<Thread> Threads { get; set; }
-    public DbSet<ThreadResponse> ThreadResponses { get; set; }
+    public DbSet<Topic> Topics { get; set; }
+    public DbSet<TopicResponse> TopicsResponses { get; set; }
     
     public BlixtHackDbContext() {
     }

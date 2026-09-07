@@ -40,7 +40,7 @@ namespace ClassLibrary.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.Thread", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,22 +60,25 @@ namespace ClassLibrary.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ThreadCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("TopicCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ThreadCategoryId");
+                    b.HasIndex("TopicCategoryId");
 
-                    b.ToTable("Threads");
+                    b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.ThreadResponse", b =>
+            modelBuilder.Entity("ClassLibrary.Data.TopicResponse", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,46 +98,46 @@ namespace ClassLibrary.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("ThreadParentId")
+                    b.Property<int>("TopicParentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ThreadParentId");
+                    b.HasIndex("TopicParentId");
 
-                    b.ToTable("ThreadResponses");
+                    b.ToTable("TopicsResponses");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.Thread", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Topic", b =>
                 {
-                    b.HasOne("ClassLibrary.Data.Category", "ThreadCategory")
-                        .WithMany("Threads")
-                        .HasForeignKey("ThreadCategoryId")
+                    b.HasOne("ClassLibrary.Data.Category", "TopicCategory")
+                        .WithMany("Topics")
+                        .HasForeignKey("TopicCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThreadCategory");
+                    b.Navigation("TopicCategory");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.ThreadResponse", b =>
+            modelBuilder.Entity("ClassLibrary.Data.TopicResponse", b =>
                 {
-                    b.HasOne("ClassLibrary.Data.Thread", "ThreadParent")
-                        .WithMany("ThreadResponses")
-                        .HasForeignKey("ThreadParentId")
+                    b.HasOne("ClassLibrary.Data.Topic", "TopicParent")
+                        .WithMany("TopicResponses")
+                        .HasForeignKey("TopicParentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ThreadParent");
+                    b.Navigation("TopicParent");
                 });
 
             modelBuilder.Entity("ClassLibrary.Data.Category", b =>
                 {
-                    b.Navigation("Threads");
+                    b.Navigation("Topics");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.Thread", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Topic", b =>
                 {
-                    b.Navigation("ThreadResponses");
+                    b.Navigation("TopicResponses");
                 });
 #pragma warning restore 612, 618
         }
