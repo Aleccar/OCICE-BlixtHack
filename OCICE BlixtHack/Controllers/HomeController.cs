@@ -11,11 +11,13 @@ namespace OCICE_BlixtHack.Controllers
         private readonly ICategoryService _categoryService;
         private readonly BlixtHackDbContext _context;
         private readonly ITopicService _topicService;
+        private readonly ITopicResponseService _topicResponseService;
 
-        public HomeController(ICategoryService categoryService, BlixtHackDbContext context, ITopicService topicService)
+        public HomeController(ICategoryService categoryService, BlixtHackDbContext context, ITopicService topicService, ITopicResponseService responceService)
         {
             _categoryService = categoryService;
             _topicService = topicService;
+            _topicResponseService = responceService;
             _context = context;
         }
         public IActionResult Index()
@@ -44,6 +46,13 @@ namespace OCICE_BlixtHack.Controllers
             };
 
             return View(topicsVM);
+        }
+        public IActionResult Topic(int topicId) {
+            var topicResponseVM = new TopicResponseVM
+            {
+                TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicId),
+            };
+            return View(topicResponseVM);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

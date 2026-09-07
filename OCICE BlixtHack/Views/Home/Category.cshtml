@@ -19,7 +19,7 @@
             @foreach (var topic in Model.Topics)
             {
                 <tr>
-                    <td><a asp-action="Topic" asp-controller="Home" asp-route-categoryId="@topic.Id">@topic.Title</a></td>
+                    <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id">@topic.Title</a></td>
                     <td>@topic.Alias</td>
                     <td>@topic.CreatedAt</td>
                 </tr>
