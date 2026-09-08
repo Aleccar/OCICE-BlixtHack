@@ -9,21 +9,33 @@
 </head>
 <body>
     <div>
-        <h1>@Model.CategoryName</h1>
-        <table>
-            <tr>
-                <th>Rubrik</th>
-                <th>Skrivet av</th>
-                <th>Datum</th>
-            </tr>
-            @foreach (var topic in Model.Topics)
-            {
+        <h1 class="text-center">@Model.CategoryName</h1>
+        <table class="table table-hover">
+            <thead class="table-dark">
                 <tr>
-                    <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id">@topic.Title</a></td>
-                    <td>@topic.Alias</td>
-                    <td>@topic.CreatedAt</td>
+                    <th>Rubrik</th>
+                    <th>Skrivet av</th>
+                    <th class="text-center">Visningar</th>
+                    <th class="text-center">Antal Svar</th>
+                    <th></th>
+                    <th>Datum</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var topic in Model.Topics)
+                {
+                    <tr class="position-relative ">
+
+                        <td>@topic.Title</td>
+                        <td>@topic.Alias</td>
+                        <td class="text-center">@topic.Views</td>
+                        <td class="text-center">@topic.TopicResponses.Count()</td>
+                        <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" class="stretched-link"></a></td>
+                        <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
+
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </body>

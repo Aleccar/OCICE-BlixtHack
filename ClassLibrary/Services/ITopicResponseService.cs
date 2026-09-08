@@ -1,7 +1,6 @@
 ﻿using ClassLibrary.Data.Models;
 
-namespace ClassLibrary.Services;
-
-public interface ITopicResponseService {
+public interface ITopicResponseService
+{
     IEnumerable<TopicResponse> GetAllTopicResponsesByTopicId(int id);
 }
