@@ -10,7 +10,8 @@ namespace ClassLibrary.Services
     {
         private readonly BlixtHackDbContext _context = context;
         public IEnumerable<TopicResponse> GetAllTopicResponsesByTopicId(int id)
-        {var topicResponses=_context.TopicsResponses.Where(r=>r.TopicParent.Id == id);
+        {
+            var topicResponses=_context.TopicsResponses.Where(r=>r.TopicParent.Id == id);
             return topicResponses;
         }
     }
