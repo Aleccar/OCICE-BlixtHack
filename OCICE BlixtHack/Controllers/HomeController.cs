@@ -62,6 +62,21 @@ namespace OCICE_BlixtHack.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Topic(TopicResponseVM topicResponseVM)
+        {
+            if (ModelState.IsValid)
+            {
+                _topicResponseService.CreateResponseByTopic(topicResponseVM.TopicResponseCreateDTO);
+                return RedirectToAction("Topic", new {topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId});
+            }
+
+            topicResponseVM.Topic = _topicService.GetTopicByTopicId(topicResponseVM.TopicResponseCreateDTO.TopicParentId);
+            topicResponseVM.TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicResponseVM.TopicResponseCreateDTO.TopicParentId);
+            return View(topicResponseVM);
+        }
+
+        [HttpPost]
         public IActionResult AddTopic(CreateTopicModalVM modelVM)
         {
             if (!ModelState.IsValid) {
@@ -73,7 +88,6 @@ namespace OCICE_BlixtHack.Controllers
             var topic = _topicService.CreateTopic(createdTopic, category);
             TempData["success"] = "Lyckades skapa ny tråd!";
             return RedirectToAction("Topic", new { topicId = topic.Id });
-
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
