@@ -52,6 +52,8 @@ namespace OCICE_BlixtHack.Controllers
             {
                 TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicId),
             };
+            
+            _topicService.IncrementViewByTopicId(topicId);
             return View(topicResponseVM);
         }
 
