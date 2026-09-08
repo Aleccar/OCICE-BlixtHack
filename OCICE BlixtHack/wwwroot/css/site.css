@@ -44,8 +44,8 @@ body {
     margin-bottom: 60px;
     background-color: #3f484b;
     color: #e6ebed;
-    margin-left: 10px; /*ändras efter smak*/
-    margin-right: 10px; /*ändras efter smak*/
+    margin-left: 20px; /*ändras efter smak*/
+    margin-right: 20px; /*ändras efter smak*/
 }
 .navbar {
     background-color: #3f484b;
@@ -71,9 +71,12 @@ a {
 .dot {
     height: 25px;
     width: 25px;
-    background-color: #e6ebed;
+    background-color: #E52B50;
     border-radius: 50%;
-    display:inline;
+   display:inline-block;
+}
+.pink {
+    background-color: #FFC0CB;
 }
 
 main {
@@ -85,4 +88,7 @@ aside a {
     display: block;
     padding: 0px;
     text-decoration: none;
+}
+.layout{
+    border-right: solid 2px;
 }
