@@ -20,4 +20,9 @@ public class TopicService(BlixtHackDbContext context) : ITopicService {
         var topic = _context.Topics.FirstOrDefault(t => t.Id == id);
         return topic;
     }
+
+    public void IncrementViewByTopicId(int topicId) {
+        context.Topics.FirstOrDefault(t => t.Id == topicId)!.Views++;
+        _context.SaveChanges();
+    }
 }

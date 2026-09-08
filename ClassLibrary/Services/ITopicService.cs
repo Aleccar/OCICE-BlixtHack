@@ -7,4 +7,5 @@ public interface ITopicService {
     Topic GetTopicByTopicId(int id);
 
     IEnumerable<Topic> GetRecentTopics();
+    void IncrementViewByTopicId(int topicId);
 }

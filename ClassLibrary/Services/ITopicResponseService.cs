@@ -1,12 +1,9 @@
 ﻿using ClassLibrary.Data;
+using ClassLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ClassLibrary.Services
-{
-    public interface ITopicResponseService
-    {
-        IEnumerable<TopicResponse> GetAllTopicResponsesByTopicId(int id);
-    }
+public interface ITopicResponseService {
+    IEnumerable<TopicResponse> GetAllTopicResponsesByTopicId(int id);
 }
