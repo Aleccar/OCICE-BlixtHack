@@ -22,4 +22,8 @@ public class CategoryService : ICategoryService {
     public string GetCategoryNameById(int categoryId) {
         return _context.Categories.FirstOrDefault(c => c.Id == categoryId).Title;
     }
+    
+    public Category GetCategoryById(int categoryId) {
+        return _context.Categories.First(c => c.Id == categoryId);
+    }
 }

@@ -30,12 +30,16 @@
                     <li class="nat-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Categories">Kategorier</a>
                     </li>
-
+                    <li>
+                        @await Component.InvokeAsync("CreateTopicModal")
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
+
 <div class="layout">
     <aside class="sidebar">
         @await Component.InvokeAsync("CategoriesSidebar")
