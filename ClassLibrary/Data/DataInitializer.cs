@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ClassLibrary.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassLibrary.Data;
 
@@ -88,6 +89,51 @@ public class DataInitializer
                 CreatedAt = DateTime.Now,
             },
         };
+        var topicResponses = new List<TopicResponse>
+        {
+            new()
+            {
+                TopicParent= topics[4],
+                CommentBody="Bror, du gjorde alltså en Titanic-simulering i badkaret och när flickvännen konfronterade dig valde du ändå att stå fast vid vetenskapen :D\r\n\r\nMen jag respekterar ändå engagemanget. Cameron: ”Det handlar om flytkraft.”\r\nDu: ”Fel. Jag har en garderobsdörr och ett Excel-ark.”\r\n\r\nDet enda som saknas nu är att du bygger en fullskalig Titanic-modell på uppfarten för att bevisa det en gång för alla.\r\n\r\nOch ”jag tänker inte diskutera detta mer” efter att ha skrivit en hel vetenskaplig avhandling om Jack och en dörr är kanske det mest aggressiva jag läst idag.",
+                ResponderAlias="CameronLover82",
+                CreatedAt= DateTime.Now,
+            },
+             new()
+            {
+                TopicParent= topics[4],
+                CommentBody="Jag behöver inte bygga en fullskalig modell. Jag har redan bevisat min tes.\r\n\r\nAtt experimentet slutade med vatten över hela badrumsgolvet och en flickvän som övervägde att lämna mig är irrelevant för den vetenskapliga processen.\r\n\r\nOch för övrigt: jag har identifierat ytterligare ett problem med Camerons version.\r\n\r\nJack hade kunnat ta av sig byxorna och använda dem som flythjälp.\r\n\r\nJag återkommer när jag har räknat på det.",
+                ResponderAlias="TEAMJACK",
+                CreatedAt= DateTime.Now,
+            },
+              new()
+            {
+                TopicParent= topics[3],
+                CommentBody="Men vänta nu, hur gick det här ens till? :D Ni var kompisar från början och helt plötsligt blev personen din kusin? Jag behöver hela storyn, för det där känns som en sjuk familjeplot twist. Hur upptäckte ni det och vem av er fattade det först? :O",
+                ResponderAlias="FionaPear",
+                CreatedAt= DateTime.Now,
+            },
+               new()
+            {
+                TopicParent= topics[3],
+                CommentBody="NEJ men det där låter som början på en hel dokumentär :) Hur kan man ens råka upptäcka att ens polare egentligen är släkt med en? Vem kom på det och hur lång tid tog det innan ni bara accepterade att ni nu är kusiner? :D",
+                ResponderAlias="Wannaknowitall1",
+                CreatedAt= DateTime.Now,
+            },
+                new()
+            {
+                TopicParent= topics[0],
+                CommentBody="BROOOO :D:D:D \"lite mer el i jäveln\" JAG DÖR :O:O nästa gång du kör hela jävla avsmakningsmenyn eller?? först bilbatteri sen spolarvätska till efterrätt, SOMMELIER PÅ BILVERKSTAN :D",
+                ResponderAlias="KrutTorr99",
+                CreatedAt= DateTime.Now,
+            },
+                 new()
+            {
+                TopicParent= topics[0],
+                CommentBody="HAHAHA jag respekterar ändå nischen :D:D:D alla andra sitter och snackar om chips och godis, här kommer ni och upptäcker en helt ny smakvärld :O \"sura nappar fast med lite mer el\" låter ju faktiskt som en jävligt stark recension, 10/10 kreativitet",
+                ResponderAlias="FunGal4567",
+                CreatedAt= DateTime.Now,
+            },
+        };
         if (!_context.Categories.Any())
         {
             _context.Categories.AddRange(categories);
@@ -96,6 +142,10 @@ public class DataInitializer
         if (!_context.Topics.Any())
         {
             _context.Topics.AddRange(topics);
+        }
+        if (!_context.TopicsResponses.Any())
+        {
+            _context.TopicsResponses.AddRange(topicResponses);
         }
         _context.SaveChanges();
     }

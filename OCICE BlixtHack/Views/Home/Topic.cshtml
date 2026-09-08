@@ -8,28 +8,58 @@
     <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
 </head>
 <body>
-    <div>
-        <h1>@Model.Topic.Title</h1>
-        <table>
-            <tr>
-                <th>Text</th>
-                <th>Skrivet av</th>
-                <th>Datum</th>
-            </tr>
-            <tr><td>@Model.Topic.BodyText</td>
-                <td>@Model.Topic.Alias</td>
-                <td>@Model.Topic.CreatedAt</td>
-            </tr>
+    <div class="align-content-center ">
 
-            @foreach (var reply in Model.TopicResponses)
-            {
-                <tr>
-                    <td>@reply.CommentBody</td>
-                    <td>@reply.ResponderAlias</td>
-                    <td>@reply.CreatedAt</td>
-                </tr>
-            }
-        </table>
+        <article class="card">
+
+            <h1 class="card-header card-title">
+                @Model.Topic.Title
+            </h1>
+            <div class="card-body">
+
+                <p class="mt-1">
+                    @Model.Topic.BodyText
+                </p>
+
+                <div class="card-footer mt-1 container">
+                    <div class="row">
+                        <div class="col">
+                            <p>Skrivet av: @Model.Topic.Alias</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>Visningar: @Model.Topic.Views</p>
+                        </div>
+                        <div class="col text-end">
+                            <p>@Model.Topic.CreatedAt.ToShortDateString() @Model.Topic.CreatedAt.ToShortTimeString()</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+
+        <button type="button" class="btn btn-primary mt-2">Skriv Svar</button>
+
+        @foreach (var reply in Model.TopicResponses)
+        {
+            <article class="card mt-2">
+                <p class="card-body">
+                    @reply.CommentBody
+                </p>
+
+                <div class="card-footer mt-1 container">
+                    <div class="row">
+                        <div class="col">
+                            <p>Respondent: @reply.ResponderAlias</p>
+                        </div>
+                        <div class="col text-end">
+                            <p>@reply.CreatedAt.ToShortDateString() @reply.CreatedAt.ToShortTimeString()</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        }
+
     </div>
 </body>
 </html>

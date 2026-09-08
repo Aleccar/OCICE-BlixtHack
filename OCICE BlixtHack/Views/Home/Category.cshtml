@@ -21,7 +21,7 @@
                 <tr>
                     <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id">@topic.Title</a></td>
                     <td>@topic.Alias</td>
-                    <td>@topic.CreatedAt</td>
+                    <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
                 </tr>
             }
         </table>
