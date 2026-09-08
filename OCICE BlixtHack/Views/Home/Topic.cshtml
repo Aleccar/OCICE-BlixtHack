@@ -1,0 +1,37 @@
+﻿@model TopicResponseVM
+
+<!DOCTYPE html>
+
+<html lang="se-sv">
+<head>
+    <title>@Model.Topic</title>
+    <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true"/>
+</head>
+<body>
+<div>
+    <h1>@Model.Topic.Title</h1>
+    <table>
+        <tr>
+            <th>Text</th>
+            <th>Skrivet av</th>
+            <th>Datum</th>
+            <th>Views</th>
+        </tr>
+        <tr>
+            <td>@Model.Topic.BodyText</td>
+            <td>@Model.Topic.Alias</td>
+            <td>@Model.Topic.CreatedAt</td>
+            <td>@Model.Topic.Views</td>
+        </tr>
+
+        @foreach (var reply in Model.TopicResponses) {
+            <tr>
+                <td>@reply.CommentBody</td>
+                <td>@reply.ResponderAlias</td>
+                <td>@reply.CreatedAt</td>
+            </tr>
+        }
+    </table>
+</div>
+</body>
+</html>
