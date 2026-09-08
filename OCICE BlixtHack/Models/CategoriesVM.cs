@@ -1,4 +1,4 @@
-﻿using ClassLibrary.Data;
+﻿using ClassLibrary.Data.Models;
 
 namespace OCICE_BlixtHack.Models
 {

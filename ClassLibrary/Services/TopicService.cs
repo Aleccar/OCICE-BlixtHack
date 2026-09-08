@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.Data;
+using ClassLibrary.Data.Models;
 
 namespace ClassLibrary.Services;
 
