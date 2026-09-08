@@ -39,17 +39,21 @@ namespace OCICE_BlixtHack.Controllers
         }
 
         [HttpGet]
-        public IActionResult Category(int categoryId) {
-            var topicsVM = new TopicVM {
+        public IActionResult Category(int categoryId)
+        {
+            var topicsVM = new TopicVM
+            {
                 Topics = _topicService.GetAllTopicsByCategoryId(categoryId),
                 CategoryName = _categoryService.GetCategoryNameById(categoryId),
             };
 
             return View(topicsVM);
         }
-        public IActionResult Topic(int topicId) {
+        public IActionResult Topic(int topicId)
+        {
             var topicResponseVM = new TopicResponseVM
             {
+                Topic = _topicService.GetTopicByTopicId(topicId),
                 TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicId),
             };
             

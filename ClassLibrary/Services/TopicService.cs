@@ -11,7 +11,13 @@ public class TopicService(BlixtHackDbContext context) : ITopicService {
     }
 
     public IEnumerable<Topic> GetRecentTopics() {
-        throw new NotImplementedException();
+        throw new NotImplementedException(); //TODO
+    }
+
+    public Topic GetTopicByTopicId(int id)
+    {
+        var topic = _context.Topics.FirstOrDefault(t => t.Id == id);
+        return topic;
     }
 
     public void IncrementViewByTopicId(int topicId) {
