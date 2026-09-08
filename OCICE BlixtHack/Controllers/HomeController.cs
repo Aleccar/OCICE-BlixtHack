@@ -68,13 +68,11 @@ namespace OCICE_BlixtHack.Controllers
             if (ModelState.IsValid)
             {
                 _topicResponseService.CreateResponseByTopic(topicResponseVM.TopicResponseCreateDTO);
-
                 return RedirectToAction("Topic", new {topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId});
             }
 
             topicResponseVM.Topic = _topicService.GetTopicByTopicId(topicResponseVM.TopicResponseCreateDTO.TopicParentId);
             topicResponseVM.TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicResponseVM.TopicResponseCreateDTO.TopicParentId);
-
             return View(topicResponseVM);
         }
 

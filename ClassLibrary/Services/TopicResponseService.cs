@@ -16,7 +16,6 @@ namespace ClassLibrary.Services
 
         public void CreateResponseByTopic(TopicResponseDTO topicResponseDTO)
         {
-
             var topicParent = _context.Topics.FirstOrDefault(t => t.Id == topicResponseDTO.TopicParentId);
 
             var topicResponseDb = new TopicResponse
@@ -30,6 +29,5 @@ namespace ClassLibrary.Services
             _context.Add(topicResponseDb);
             _context.SaveChanges();
         }
-
     }
 }
