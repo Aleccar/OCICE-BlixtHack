@@ -35,21 +35,30 @@ aside {
     width: 220px;
     background: #3f484b;
     padding: 20px;
+    border-left:solid;
+    border-right:solid;
+    border-color: #e6ebed;
 }
+/*.sidebar {
+    border-left: 2px;
+    border-right: 2px;
+    border-color: #e6ebed;
+}*/
 
 body {
     margin-bottom: 60px;
     background-color: #3f484b;
     color: #e6ebed;
+    margin-left: 10px; /*ändras efter smak*/
+    margin-right: 10px; /*ändras efter smak*/
 }
 
 .navbar {
     background-color: #3f484b;
-    border-color: #e6ebed;
-   
+    border-color: #e6ebed; 
 }
     .navbar .nav-link {
-        color: #ffffff; /* text color */
+        color: #e6ebed;
     }
 
         .navbar .nav-link:hover,
@@ -66,11 +75,11 @@ a {
 
 main {
     flex: 1;
-    padding: 30px;
+    padding: 0px;
 }
 
 aside a {
     display: block;
-    padding: 10px;
+    padding: 0px;
     text-decoration: none;
 }
