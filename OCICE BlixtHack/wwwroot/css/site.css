@@ -35,15 +35,10 @@ aside {
     width: 220px;
     background: #3f484b;
     padding: 20px;
-    border-left:solid;
-    border-right:solid;
+    border-left:solid 2px;
+    border-right:solid 2px;
     border-color: #e6ebed;
 }
-/*.sidebar {
-    border-left: 2px;
-    border-right: 2px;
-    border-color: #e6ebed;
-}*/
 
 body {
     margin-bottom: 60px;
@@ -52,10 +47,11 @@ body {
     margin-left: 10px; /*ändras efter smak*/
     margin-right: 10px; /*ändras efter smak*/
 }
-
 .navbar {
     background-color: #3f484b;
-    border-color: #e6ebed; 
+    border-bottom: solid 2px;
+    border-top: solid 2px;
+    border-color: #e6ebed;
 }
     .navbar .nav-link {
         color: #e6ebed;
@@ -72,6 +68,13 @@ a {
     a:hover {
         color: #E52B50;
     }
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: #e6ebed;
+    border-radius: 50%;
+    display:inline;
+}
 
 main {
     flex: 1;
