@@ -1,0 +1,42 @@
+@model CreateTopicModalVM
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTopicModal">
+    Skapa Ny Tråd
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createTopicModal" tabindex="-1"
+     aria-labelledby="createTopicModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createTopicModalLabel">Ny Tråd</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-controller="Home" asp-action="AddTopic">
+                    <label asp-for="CreateTopicDTO.Title">Rubrik:</label><br/>
+                    <input asp-for="CreateTopicDTO.Title" type="text"
+                           placeholder="Skriv Rubrik..."><br/>
+
+                    <label asp-for="CreateTopicDTO.BodyText">Text:</label><br/>
+                    <input asp-for="CreateTopicDTO.BodyText" type="text"
+                           placeholder="Skriv brödtext..."><br/>
+
+                    <label asp-for="CreateTopicDTO.Alias">Alias:</label><br/>
+                    <input asp-for="CreateTopicDTO.Alias" type="text"
+                           placeholder="Skriv ditt alias..."><br/>
+
+                    <label asp-for="CreateTopicDTO.categoryId">Kategori:</label><br/>
+                    <select asp-for="CreateTopicDTO.categoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Title"))">
+                        <option value="">-- Välj kategori --</option>
+                    </select><br/>
+
+                    <input type="submit" value="Skapa">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

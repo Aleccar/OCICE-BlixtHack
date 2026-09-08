@@ -25,4 +25,21 @@ public class TopicService(BlixtHackDbContext context) : ITopicService {
         context.Topics.FirstOrDefault(t => t.Id == topicId)!.Views++;
         _context.SaveChanges();
     }
+
+    public Topic CreateTopic(TopicDTO topicDTO, Category category)
+    {
+        var topicDB = new Topic
+        {
+            TopicCategory = category,
+            Title = topicDTO.Title,
+            BodyText = topicDTO.BodyText,
+            Alias = topicDTO.Alias,
+            Views = 0,
+            CreatedAt = DateTime.Now,
+        };
+
+        _context.Topics.Add(topicDB);
+        _context.SaveChanges();
+        return topicDB;
+    }
 }

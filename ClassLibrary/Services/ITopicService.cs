@@ -8,4 +8,5 @@ public interface ITopicService {
 
     IEnumerable<Topic> GetRecentTopics();
     void IncrementViewByTopicId(int topicId);
+    Topic CreateTopic(TopicDTO topicDTO, Category category);
 }
