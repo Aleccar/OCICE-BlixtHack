@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="input-left mb-2">
-                                <label asp-for="CreateTopicDTO.Title" class="control-label">Rubrik:</label><br/>
+                                <label asp-for="CreateTopicDTO.Title" class="control-label">Rubrik</label><br/>
                             </div>
                             <input asp-for="CreateTopicDTO.Title" type="text" class="form-control" placeholder="Skriv Rubrik..."><br/>
                             <span asp-validation-for="CreateTopicDTO.Title" style="color:red"></span>
@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="input-left mb-2">
-                                <label asp-for="CreateTopicDTO.BodyText" class="control-label">Text:</label><br/>
+                                <label asp-for="CreateTopicDTO.BodyText" class="control-label">Trådtext</label><br/>
                             </div>
                             <textarea asp-for="CreateTopicDTO.BodyText" class="form-control" rows="10" placeholder="Skriv trådtext..."></textarea>
                             <span asp-validation-for="CreateTopicDTO.BodyText" style="color:red"></span>
@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="input-left mb-2">
-                                <label asp-for="CreateTopicDTO.Alias">Alias:</label><br/>
+                                <label asp-for="CreateTopicDTO.Alias">Alias</label><br/>
                             </div>
                             <input asp-for="CreateTopicDTO.Alias" type="text" class="form-control" placeholder="Skriv ditt alias..."><br/>
                             <span asp-validation-for="CreateTopicDTO.BodyText" style="color:red"></span>
@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="input-left mb-2">
-                                <label asp-for="CreateTopicDTO.categoryId">Kategori:</label><br/>
+                                <label asp-for="CreateTopicDTO.categoryId">Trådkategori</label><br/>
                             </div>
                             <select asp-for="CreateTopicDTO.categoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Title"))" class="form-control">
                                 <option value="">-- Välj kategori --</option>
