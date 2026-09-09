@@ -110,3 +110,31 @@ aside a {
     line-height: 60px;
     border-top: solid 2px #e6ebed;
 }
+
+.btn-standard-colour {
+    background-color: #E52B50;
+    color: white;
+}
+
+.btn-standard-colour:hover {
+    background-color: #9D1F38;
+}
+
+.modal-content {
+    background-color: #FFC0CB;
+}
+
+.modal-title {
+    flex: 1;
+    text-align: center;
+    color: black;
+}
+
+.control-label {
+    color: black;
+}
+
+.control-label-odd {
+    flex: 1;
+    text-align: right;
+}
