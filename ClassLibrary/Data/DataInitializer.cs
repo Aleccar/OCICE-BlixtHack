@@ -143,6 +143,10 @@ public class DataInitializer
         {
             _context.Topics.AddRange(topics);
         }
+        if (!_context.TopicsResponses.Any())
+        {
+            _context.TopicsResponses.AddRange(topicResponses);
+        }
         _context.SaveChanges();
     }
 }
