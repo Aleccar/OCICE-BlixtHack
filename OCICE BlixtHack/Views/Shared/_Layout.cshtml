@@ -42,7 +42,9 @@
                         <li class="nat-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Categories">Kategorier</a>
                         </li>
-
+                        <li>
+                            @await Component.InvokeAsync("CreateTopicModal")
+                        </li>
                     </ul>
                 </div>
             </div>
