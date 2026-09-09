@@ -29,3 +29,24 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+aside {
+    width: 220px;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+main {
+    flex: 1;
+    padding: 30px;
+}
+
+aside a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}

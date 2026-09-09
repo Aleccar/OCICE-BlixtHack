@@ -1,12 +1,9 @@
-﻿using ClassLibrary.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ClassLibrary.Data.Models;
 
-namespace ClassLibrary.Services
-{
-    public interface ICategoryService
-    {
-        IEnumerable<Category> GetAllCategories();
-    }
+namespace ClassLibrary.Services;
+
+public interface ICategoryService {
+    IEnumerable<Category> GetAllCategories();
+    string GetCategoryNameById(int categoryId);
+    Category GetCategoryById(int id);
 }

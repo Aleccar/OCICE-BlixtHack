@@ -20,4 +20,8 @@
     <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\PageView.css" />
+  </ItemGroup>
+
 </Project>
