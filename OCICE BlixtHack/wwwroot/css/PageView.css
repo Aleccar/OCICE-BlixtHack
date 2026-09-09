@@ -1,7 +1,18 @@
-﻿h1 {
-    color: #0a53be
+﻿.transparent-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: white;
+}
+
+.table-hover > tbody > tr:hover > * {
+    color: white;
+    --bs-table-color-state: var(--bs-table-hover-color);
+    --bs-table-bg-state: var(--bs-table-hover-bg);
 }
 
 p {
     white-space: pre-line
+}
+
+table {
+    color: #e6ebed;
 }
