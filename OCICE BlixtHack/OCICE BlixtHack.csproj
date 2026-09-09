@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\Category.css" />
+    <None Include="wwwroot\css\PageView.css" />
   </ItemGroup>
 
 </Project>
