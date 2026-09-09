@@ -7,6 +7,10 @@ html {
         font-size: 16px;
     }
 }
+@font-face {
+    font-family: ubuntuFont; /* set name */
+    src: url(/fonts/Ubuntu/UbuntuNerdFont-Medium.ttf) /* url of the font */
+}
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -29,15 +33,17 @@ html {
 .layout {
     display: flex;
     min-height: 100vh;
+    border-right: solid 2px #e6ebed;
 }
 
 aside {
     width: 220px;
     background: #3f484b;
     padding: 20px;
-    border-left:solid 2px;
-    border-right:solid 2px;
+    border-left: solid 2px;
+    border-right: solid 2px;
     border-color: #e6ebed;
+    font-family:ubuntuFont;
 }
 
 body {
@@ -46,13 +52,16 @@ body {
     color: #e6ebed;
     margin-left: 20px; /*ändras efter smak*/
     margin-right: 20px; /*ändras efter smak*/
-}
+    font-family: ubuntuFont;
+    }
+
 .navbar {
     background-color: #3f484b;
     border-bottom: solid 2px;
     border-top: solid 2px;
     border-color: #e6ebed;
 }
+
     .navbar .nav-link {
         color: #e6ebed;
     }
@@ -61,6 +70,7 @@ body {
         .navbar .nav-link:focus {
             color: #E52B50;
         }
+
 a {
     color: #e6ebed;
 }
@@ -68,13 +78,15 @@ a {
     a:hover {
         color: #E52B50;
     }
+
 .dot {
     height: 25px;
     width: 25px;
     background-color: #E52B50;
     border-radius: 50%;
-   display:inline-block;
+    display: inline-block;
 }
+
 .pink {
     background-color: #FFC0CB;
 }
@@ -89,6 +101,12 @@ aside a {
     padding: 0px;
     text-decoration: none;
 }
-.layout{
-    border-right: solid 2px;
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    border-top: solid 2px #e6ebed;
 }
