@@ -44,7 +44,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title fs-5" id="createResponseModalLabel">Skriv Svar</h2>
+                        <h2 class="modal-title fs-10" id="createResponseModalLabel">Skriv Svar</h2>
                     </div>
 
                     <div class="modal-body container">
@@ -52,17 +52,17 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="input-left mb-2">
-                                        <label asp-for="TopicResponseCreateDTO.CommentBody" class="control-label"></label>
+                                        <label asp-for="TopicResponseCreateDTO.CommentBody" class="control-label">Svar</label>
                                     </div>
-                                    <input asp-for="TopicResponseCreateDTO.CommentBody" type="text" class="form-control" placeholder="Skriv ett svar här..." />
+                                    <textarea asp-for="TopicResponseCreateDTO.CommentBody" class="form-control" rows="10" placeholder="Skriv ett svar..."></textarea>
                                     <span asp-validation-for="TopicResponseCreateDTO.CommentBody" style="color:red" class="field-validation-error"></span>
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="input-left mb-2">
-                                        <label asp-for="TopicResponseCreateDTO.ResponderAlias" class="control-label"></label>
+                                    <div class="input-left mb-2 float-end">
+                                        <label asp-for="TopicResponseCreateDTO.ResponderAlias" class="control-label">Alias</label>
                                     </div>
                                     <input asp-for="TopicResponseCreateDTO.ResponderAlias" type="text" class="form-control" placeholder="Alias"/>
                                     <span asp-validation-for="TopicResponseCreateDTO.ResponderAlias" style="color:red" class="field-validation-error"></span>
@@ -71,10 +71,8 @@
 
                             <input type="hidden" asp-for="TopicResponseCreateDTO.TopicParentId" value="@Model.Topic.Id"/>
 
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success mt-3">
-                                    Spara Svar
-                                </button>
+                            <div class="form-group text-center">
+                                <input type="submit" class="btn btn-lg btn-standard-colour mt-3" value="Spara Svar">
                             </div>
                         </form>
                     </div>
