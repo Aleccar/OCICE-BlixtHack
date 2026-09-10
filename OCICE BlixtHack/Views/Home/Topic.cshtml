@@ -6,9 +6,11 @@
 <head>
     <title>@Model.Topic</title>
     <link rel="stylesheet" href="~/css/PageView.css" asp-append-version="true" />
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script> 
 </head>
 <body>
-    <div class="align-content-center ">
+    <div class="align-content-center">
 
         <article class="card main-card">
 
@@ -49,7 +51,7 @@
                     </div>
 
                     <div class="modal-body container">
-                        <form method="post">
+                        <form method="post" id="responseForm">
                             <div class="row">
                                 <div class="col">
                                     <div class="input-left mb-2">
@@ -109,7 +111,29 @@
 
             i++;
         }
-
     </div>
+
+    <script>
+        document.getElementById('responseForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action || window.location.href, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                const html = await response.text();
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+                const newForm = doc.getElementById('responseForm');
+                form.innerHTML = newForm.innerHTML;
+            } 
+        });
+    </script>
 </body>
 </html>
