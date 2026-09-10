@@ -1,0 +1,39 @@
+﻿.transparent-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: white;
+    --bs-table-border-color: white;
+}
+
+.table-hover > tbody > tr:hover > * {
+    color: white;
+    --bs-table-color-state: var(--bs-table-hover-color);
+    --bs-table-bg-state: var(--bs-table-hover-bg);
+}
+
+.table-group-divider {
+    --bs-table-border-color: white;
+}
+
+p {
+    white-space: pre-line
+}
+
+table {
+    color: #e6ebed;
+}
+thead {
+    border-top: 2px solid;
+    background-color: white;
+
+    tr {
+        --bs-table-color: white;
+
+        th {
+            --bs-table-color: black;
+        }
+    }
+}
+
+tr {
+    border-bottom: 2px solid;
+}

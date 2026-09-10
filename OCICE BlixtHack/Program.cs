@@ -1,3 +1,7 @@
+using ClassLibrary.Data;
+using ClassLibrary.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace OCICE_BlixtHack
 {
     public class Program
@@ -8,8 +12,20 @@ namespace OCICE_BlixtHack
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<BlixtHackDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddTransient<DataInitializer>();
+            builder.Services.AddTransient<ICategoryService, CategoryService>();
+            builder.Services.AddTransient<ITopicService, TopicService>();
+            builder.Services.AddTransient<ITopicResponseService, TopicResponseService>();
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope()) {
+                scope.ServiceProvider.GetService<DataInitializer>().Migrate();
+                scope.ServiceProvider.GetService<DataInitializer>().Seed();
+                
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -27,7 +43,7 @@ namespace OCICE_BlixtHack
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Home}/{action=Index}/{categoryId?}")
                 .WithStaticAssets();
 
             app.Run();
