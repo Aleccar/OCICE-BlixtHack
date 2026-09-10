@@ -44,7 +44,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title fs-5" id="createResponseModalLabel">Skriv Svar</h2>
+                        <h2 class="modal-title fs-10" id="createResponseModalLabel">Skriv Svar</h2>
                     </div>
 
                     <div class="modal-body container">
@@ -61,7 +61,7 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="input-left mb-2">
+                                    <div class="input-left mb-2 float-end">
                                         <label asp-for="TopicResponseCreateDTO.ResponderAlias" class="control-label">Alias</label>
                                     </div>
                                     <input asp-for="TopicResponseCreateDTO.ResponderAlias" type="text" class="form-control" placeholder="Alias"/>
@@ -71,10 +71,8 @@
 
                             <input type="hidden" asp-for="TopicResponseCreateDTO.TopicParentId" value="@Model.Topic.Id"/>
 
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success mt-3 float-end">
-                                    Spara Svar
-                                </button>
+                            <div class="form-group text-center">
+                                <input type="submit" class="btn btn-standard-colour mt-3" value="Spara Svar">
                             </div>
                         </form>
                     </div>
