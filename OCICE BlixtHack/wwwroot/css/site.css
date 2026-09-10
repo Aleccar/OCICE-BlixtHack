@@ -132,6 +132,7 @@ aside a {
 
 .control-label {
     color: black;
+    font-size: larger;
 }
 
 .control-label-odd {
