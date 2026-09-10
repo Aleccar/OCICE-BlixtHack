@@ -80,7 +80,8 @@ namespace OCICE_BlixtHack.Controllers
         public IActionResult AddTopic(CreateTopicModalVM modelVM)
         {
             if (!ModelState.IsValid) {
-                return RedirectToAction("Index");
+                modelVM.Categories = _categoryService.GetAllCategories();
+                return PartialView("Components/CreateTopicModal/Default", modelVM);
             }
 
             var createdTopic = modelVM.CreateTopicDTO;
