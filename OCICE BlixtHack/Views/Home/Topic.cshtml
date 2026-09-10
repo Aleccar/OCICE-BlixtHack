@@ -10,11 +10,11 @@
 <body>
     <div class="align-content-center ">
 
-        <article class="card">
+        <article class="card main-card">
 
-            <h1 class="card-header card-title">
+            <h2 class="card-header card-title">
                 @Model.Topic.Title
-            </h1>
+            </h2>
             <div class="card-body">
 
                 <p class="mt-1">
@@ -38,13 +38,14 @@
             </div>
         </article>
 
-        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#createResponseModal">Skriv Svar</button>
+        <button type="button" class="btn btn-standard-colour mt-4 answer-button float-end" data-bs-toggle="modal" data-bs-target="#createResponseModal">Skriv Svar</button>
 
         <div class="modal fade" id="createResponseModal" tabindex="-1" aria-labelledby="createResponseModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="modal-title fs-10" id="createResponseModalLabel">Skriv Svar</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body container">
@@ -64,12 +65,12 @@
                                     <div class="input-left mb-2 float-end">
                                         <label asp-for="TopicResponseCreateDTO.ResponderAlias" class="control-label">Alias</label>
                                     </div>
-                                    <input asp-for="TopicResponseCreateDTO.ResponderAlias" type="text" class="form-control" placeholder="Alias"/>
+                                    <input asp-for="TopicResponseCreateDTO.ResponderAlias" type="text" class="form-control" placeholder="Alias" />
                                     <span asp-validation-for="TopicResponseCreateDTO.ResponderAlias" style="color:red" class="field-validation-error"></span>
                                 </div>
                             </div>
 
-                            <input type="hidden" asp-for="TopicResponseCreateDTO.TopicParentId" value="@Model.Topic.Id"/>
+                            <input type="hidden" asp-for="TopicResponseCreateDTO.TopicParentId" value="@Model.Topic.Id" />
 
                             <div class="form-group text-center">
                                 <input type="submit" class="btn btn-lg btn-standard-colour mt-3" value="Spara Svar">
@@ -80,9 +81,16 @@
             </div>
         </div>
 
+        
+        @{
+            int i = 0;
+        }
+
         @foreach (var reply in Model.TopicResponses)
         {
-            <article class="card mt-2">
+            var cardClass = i % 2 == 0 ? "card-left" : "card-right";
+
+            <article class="card mt-4 response-card @cardClass">
                 <p class="card-body">
                     @reply.CommentBody
                 </p>
@@ -98,6 +106,8 @@
                     </div>
                 </div>
             </article>
+
+            i++;
         }
 
     </div>
