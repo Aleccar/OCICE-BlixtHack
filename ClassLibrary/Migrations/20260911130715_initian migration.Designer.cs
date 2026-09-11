@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClassLibrary.Migrations
 {
     [DbContext(typeof(BlixtHackDbContext))]
-    [Migration("20260911111038_passwordlength")]
-    partial class passwordlength
+    [Migration("20260911130715_initian migration")]
+    partial class initianmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,7 +122,7 @@ namespace ClassLibrary.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
