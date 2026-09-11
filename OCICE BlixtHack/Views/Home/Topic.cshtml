@@ -157,7 +157,12 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <h5 style="color: black" class="text-center">"@reply.CommentBody"</h5>
+                                <h5 style="color: black" class="text-center">
+                                    " @(reply.CommentBody?.Length > 50
+                                            ? reply.CommentBody.Substring(0, 50) + "..."
+                                            : reply.CommentBody)" 
+                                            Id: @reply.Id
+                                </h5>
 
                                 <div class="col">
                                     <div class="row">
