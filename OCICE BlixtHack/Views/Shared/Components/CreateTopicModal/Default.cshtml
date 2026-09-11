@@ -7,14 +7,14 @@
 
 <!-- Modal -->
 <div class="modal fade" id="createTopicModal" tabindex="-1" aria-labelledby="createTopicModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title fs-10" id="createTopicModalLabel">Ny Tråd</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container">
-                <form method="post" asp-controller="Home" asp-action="AddTopic">
+                <form method="post" id="topicForm" asp-controller="Home" asp-action="AddTopic">
                     <div class="row">
                         <div class="col">
                             <div class="input-left mb-2">
@@ -23,8 +23,10 @@
                             </div>
                             <select asp-for="CreateTopicDTO.categoryId"
                                     asp-items="@(new SelectList(Model.Categories, "Id", "Title"))" class="form-control">
-                                <option value="">-- Välj kategori --</option>
-                            </select><br/>
+                                 <option value="" disabled selected hidden>-- Välj kategori --</option> 
+                            </select>
+                            <span asp-validation-for="CreateTopicDTO.categoryId" style="color:red"></span>
+                            <br />
                         </div>
                     </div>
                     
@@ -34,8 +36,9 @@
                                 <label asp-for="CreateTopicDTO.Title" class="control-label">Rubrik</label><br/>
                             </div>
                             <input asp-for="CreateTopicDTO.Title" type="text" class="form-control"
-                                   placeholder="Skriv Rubrik..."><br/>
+                                   placeholder="Skriv Rubrik...">
                             <span asp-validation-for="CreateTopicDTO.Title" style="color:red"></span>
+                            <br />
                         </div>
                     </div>
 
@@ -48,6 +51,7 @@
                             <textarea asp-for="CreateTopicDTO.BodyText" class="form-control" rows="10"
                                       placeholder="Skriv trådtext..."></textarea>
                             <span asp-validation-for="CreateTopicDTO.BodyText" style="color:red"></span>
+                            <br />
                         </div>
                     </div>
 
@@ -57,8 +61,9 @@
                                 <label asp-for="CreateTopicDTO.Alias" class="control-label">Alias</label><br/>
                             </div>
                             <input asp-for="CreateTopicDTO.Alias" type="text" class="form-control"
-                                   placeholder="Skriv ditt alias..."><br/>
-                            <span asp-validation-for="CreateTopicDTO.BodyText" style="color:red"></span>
+                                   placeholder="Skriv ditt alias...">
+                            <span asp-validation-for="CreateTopicDTO.Alias" style="color:red"></span>
+                            <br />
                         </div>
                     </div>
 
@@ -70,3 +75,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('topicForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+
+        if (!$(form).valid()) {
+            return;
+        }
+
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action || window.location.href, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            const html = await response.text();
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const newForm = doc.getElementById('topicForm');
+            form.innerHTML = newForm.innerHTML;
+        }
+    });
+</script>

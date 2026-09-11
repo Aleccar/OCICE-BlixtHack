@@ -21,6 +21,7 @@ p {
 table {
     color: #e6ebed;
 }
+
 thead {
     border-top: 2px solid;
     background-color: white;
@@ -36,4 +37,35 @@ thead {
 
 tr {
     border-bottom: 2px solid;
+}
+
+/*TOPIC VIEW SECTION --------------------------------- */
+
+.main-card {
+    margin-top: 1rem;
+    width: 100%;
+    padding-left: 0px;
+    border-radius: 1rem;
+}
+
+.answer-button {
+    padding: .5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: .1rem;
+}
+
+.response-card {
+    width: 65%;
+    border-radius: 1rem;
+}
+
+.card-left {
+    display: flex;
+}
+
+.card-right {
+    display: flex;
+    float: inline-end;
+    margin-bottom: 2rem;
 }

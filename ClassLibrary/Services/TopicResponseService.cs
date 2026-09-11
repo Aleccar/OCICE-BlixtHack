@@ -1,6 +1,7 @@
 ﻿using ClassLibrary.Data;
 using ClassLibrary.Data.Models;
 using ClassLibrary.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassLibrary.Services
 {
@@ -10,7 +11,8 @@ namespace ClassLibrary.Services
 
         public IEnumerable<TopicResponse> GetAllTopicResponsesByTopicId(int id)
         {
-            var topicResponses = _context.TopicsResponses.Where(r => r.TopicParent.Id == id).OrderBy(r => r.CreatedAt).Reverse();
+            var topicResponses = _context.TopicsResponses.Where(r => r.TopicParent.Id == id).OrderBy(r => r.CreatedAt)
+                .Reverse();
             return topicResponses;
         }
 
@@ -28,6 +30,31 @@ namespace ClassLibrary.Services
 
             _context.Add(topicResponseDb);
             _context.SaveChanges();
+        }
+
+        
+        
+        public bool DeleteResponseById(int id)
+        {
+            var response = _context.TopicsResponses.FirstOrDefault(r => r.Id == id);
+
+            if (response == null)
+            {
+                return false;
+            }
+
+            _context.TopicsResponses.Remove(response);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public int GetParentIdByResponseId(int id)
+        {
+            var topicResponse = _context.TopicsResponses
+                .Include(tr => tr.TopicParent)
+                .First(tr => tr.Id == id );
+
+            return  topicResponse.TopicParent.Id;
         }
     }
 }
