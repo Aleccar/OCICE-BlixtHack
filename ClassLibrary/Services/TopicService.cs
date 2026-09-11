@@ -55,7 +55,6 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
         return _context.Topics
             .Include(t => t.TopicResponses)
             .Include(t => t.TopicCategory)
-            .Where(t => t.TopicResponses.Any())
             .OrderByDescending(t => t.TopicResponses.Max(tr => tr.CreatedAt))
             .Take(topicAmountToDisplay);
     }
