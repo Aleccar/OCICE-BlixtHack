@@ -49,15 +49,20 @@ namespace OCICE_BlixtHack.Controllers
 
             return View(topicsVM);
         }
-        public IActionResult Topic(int topicId)
+        public IActionResult Topic(int topicId, bool incrementViews = false)
         {
+            if (incrementViews)
+            {
+                _topicService.IncrementViewByTopicId(topicId);
+                return RedirectToAction("Topic", new { topicId });
+            }
+
             var topicResponseVM = new TopicResponseVM
             {
                 Topic = _topicService.GetTopicByTopicId(topicId),
                 TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicId),
             };
-            
-            _topicService.IncrementViewByTopicId(topicId);
+
             return View(topicResponseVM);
         }
 
@@ -68,7 +73,7 @@ namespace OCICE_BlixtHack.Controllers
             if (ModelState.IsValid)
             {
                 _topicResponseService.CreateResponseByTopic(topicResponseVM.TopicResponseCreateDTO);
-                return RedirectToAction("Topic", new {topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId});
+                return RedirectToAction("Topic", new { topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId });
             }
 
             topicResponseVM.Topic = _topicService.GetTopicByTopicId(topicResponseVM.TopicResponseCreateDTO.TopicParentId);
@@ -79,7 +84,8 @@ namespace OCICE_BlixtHack.Controllers
         [HttpPost]
         public IActionResult AddTopic(CreateTopicModalVM modelVM)
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 modelVM.Categories = _categoryService.GetAllCategories();
                 return PartialView("Components/CreateTopicModal/Default", modelVM);
             }
