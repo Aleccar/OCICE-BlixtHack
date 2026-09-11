@@ -6,7 +6,7 @@ public interface ITopicService {
     IEnumerable<Topic> GetAllTopicsByCategoryId(int id);
     Topic GetTopicByTopicId(int id);
 
-    IEnumerable<Topic> GetRecentTopics();
+    IEnumerable<Topic> GetRecentTopics(int amountOfTopics);
     void IncrementViewByTopicId(int topicId);
     Topic CreateTopic(TopicDTO topicDTO, Category category);
 }

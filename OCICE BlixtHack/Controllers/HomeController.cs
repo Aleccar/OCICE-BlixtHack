@@ -24,6 +24,7 @@ namespace OCICE_BlixtHack.Controllers
         {
             var categoryVM = new CategoriesVM();
             categoryVM.Categories = _categoryService.GetAllCategories();
+            categoryVM.LatestTopics = _topicService.GetRecentTopics(3);
             return View(categoryVM);
         }
 
