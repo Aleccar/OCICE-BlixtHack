@@ -27,7 +27,7 @@
     @foreach (var topic in Model.LatestTopics) {
         <tr class="position-relative ">
 
-            <td>@topic.Title</td>
+            <td class="col-5">@topic.Title</td>
             <td>@topic.TopicCategory.Title</td>
             <td>@topic.Alias</td>
             <td class="text-center">@topic.Views</td>
@@ -58,7 +58,7 @@
     @foreach (var topic in Model.LatestActiveTopics) {
         <tr class="position-relative ">
     
-            <td>@topic.Title</td>
+            <td class="col-5">@topic.Title</td>
             <td>@topic.TopicCategory.Title</td>
             <td>@topic.Alias</td>
             <td class="text-center">@topic.Views</td>
@@ -89,7 +89,7 @@
     @foreach (var topic in Model.MostViewedTopics) {
         <tr class="position-relative ">
     
-            <td>@topic.Title</td>
+            <td class="col-5">@topic.Title</td>
             <td>@topic.TopicCategory.Title</td>
             <td>@topic.Alias</td>
             <td class="text-center">@topic.Views</td>

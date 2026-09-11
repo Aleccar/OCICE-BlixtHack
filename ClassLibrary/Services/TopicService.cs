@@ -17,6 +17,7 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
     public IEnumerable<Topic> GetRecentTopics(int topicAmountToDisplay)
     {
         return _context.Topics
+            .Include(t => t.TopicResponses)
             .Include(t => t.TopicCategory)
             .OrderByDescending(t => t.CreatedAt).Take(topicAmountToDisplay);
     }
@@ -52,6 +53,7 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
     public IEnumerable<Topic> GetLatestActiveTopics(int topicAmountToDisplay)
     {
         return _context.Topics
+            .Include(t => t.TopicResponses)
             .Include(t => t.TopicCategory)
             .Where(t => t.TopicResponses.Any())
             .OrderByDescending(t => t.TopicResponses.Max(tr => tr.CreatedAt))
@@ -61,6 +63,7 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
     public IEnumerable<Topic> GetMostViewedTopics(int topicAmountToDisplay)
     {
         return _context.Topics
+            .Include(t => t.TopicResponses)
             .Include(t => t.TopicCategory)
             .OrderByDescending(t => t.Views)
             .Take(topicAmountToDisplay);
