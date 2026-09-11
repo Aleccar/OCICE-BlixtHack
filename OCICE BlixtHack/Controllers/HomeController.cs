@@ -20,18 +20,23 @@ namespace OCICE_BlixtHack.Controllers
             _topicResponseService = responceService;
             _context = context;
         }
+
         public IActionResult Index()
         {
-            var categoryVM = new CategoriesVM();
-            categoryVM.Categories = _categoryService.GetAllCategories();
-            categoryVM.LatestTopics = _topicService.GetRecentTopics(3);
-            return View(categoryVM);
+            var indexTopicsVM = new IndexTopicsVM
+            {
+                LatestTopics = _topicService.GetRecentTopics(5),
+                LatestActiveTopics = _topicService.GetLatestActiveTopics(5),
+            };
+
+            return View(indexTopicsVM);
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
+
         public IActionResult Categories()
         {
             var categoryVM = new CategoriesVM();
@@ -50,6 +55,7 @@ namespace OCICE_BlixtHack.Controllers
 
             return View(topicsVM);
         }
+
         public IActionResult Topic(int topicId)
         {
             var topicResponseVM = new TopicResponseVM
@@ -57,7 +63,7 @@ namespace OCICE_BlixtHack.Controllers
                 Topic = _topicService.GetTopicByTopicId(topicId),
                 TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicId),
             };
-            
+
             _topicService.IncrementViewByTopicId(topicId);
             return View(topicResponseVM);
         }
@@ -66,10 +72,9 @@ namespace OCICE_BlixtHack.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Topic(TopicResponseVM topicResponseVM)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 _topicResponseService.CreateResponseByTopic(topicResponseVM.TopicResponseCreateDTO);
-                return RedirectToAction("Topic", new {topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId});
+                return RedirectToAction("Topic", new { topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId });
             }
 
             topicResponseVM.Topic = _topicService.GetTopicByTopicId(topicResponseVM.TopicResponseCreateDTO.TopicParentId);

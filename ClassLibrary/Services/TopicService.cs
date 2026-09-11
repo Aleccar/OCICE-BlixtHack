@@ -14,9 +14,9 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
         return topics;
     }
 
-    public IEnumerable<Topic> GetRecentTopics(int amountOfTopics)
+    public IEnumerable<Topic> GetRecentTopics(int topicAmountToDisplay)
     {
-        return _context.Topics.OrderByDescending(t => t.CreatedAt).Take(amountOfTopics);
+        return _context.Topics.OrderByDescending(t => t.CreatedAt).Take(topicAmountToDisplay);
     }
 
     public Topic GetTopicByTopicId(int id)
@@ -45,5 +45,13 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
         _context.Topics.Add(topicDB);
         _context.SaveChanges();
         return topicDB;
+    }
+
+    public IEnumerable<Topic> GetLatestActiveTopics(int topicAmountToDisplay)
+    {
+        return _context.Topics
+            .Where(t => t.TopicResponses.Any())
+            .OrderByDescending(t => t.TopicResponses.Max(tr => tr.CreatedAt))
+            .Take(topicAmountToDisplay);
     }
 }

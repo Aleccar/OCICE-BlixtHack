@@ -1,4 +1,4 @@
-﻿@model CategoriesVM
+﻿@model IndexTopicsVM
 
 @{
     ViewData["Title"] = "BLIXTHACK";
@@ -6,7 +6,7 @@
 
 <html lang="se-sv">
 <head>
-    <title>@Model.Title</title>
+    <title></title>
 </head>
 <body>
 <h2 class="text-center">Latest Topics</h2>
@@ -33,6 +33,35 @@
             </td>
             <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
 
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h2 class="text-center">Latest Activity</h2>
+<table class="table table-hover table-borderless transparent-table">
+    <thead>
+    <tr>
+        <th>Rubrik</th>
+        <th>Skrivet av</th>
+        <th class="text-center">Visningar</th>
+        <th class="text-center">Antal Svar</th>
+        <th></th>
+        <th>Datum</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var topic in Model.LatestActiveTopics) {
+        <tr class="position-relative ">
+    
+            <td>@topic.Title</td>
+            <td>@topic.Alias</td>
+            <td class="text-center">@topic.Views</td>
+            <td class="text-center">@topic.TopicResponses.Count()</td>
+            <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" class="stretched-link"></a>
+            </td>
+            <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
+    
         </tr>
     }
     </tbody>
