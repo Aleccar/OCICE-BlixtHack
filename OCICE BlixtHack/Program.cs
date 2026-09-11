@@ -1,5 +1,6 @@
 using ClassLibrary.Data;
 using ClassLibrary.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace OCICE_BlixtHack
@@ -19,12 +20,19 @@ namespace OCICE_BlixtHack
             builder.Services.AddTransient<ICategoryService, CategoryService>();
             builder.Services.AddTransient<ITopicService, TopicService>();
             builder.Services.AddTransient<ITopicResponseService, TopicResponseService>();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.Cookie.Name = "BlixtHackLoginCookie";
+            });
             var app = builder.Build();
 
-            using (var scope = app.Services.CreateScope()) {
+            using (var scope = app.Services.CreateScope())
+            {
                 scope.ServiceProvider.GetService<DataInitializer>().Migrate();
                 scope.ServiceProvider.GetService<DataInitializer>().Seed();
-                
+
             }
 
             // Configure the HTTP request pipeline.
@@ -38,6 +46,7 @@ namespace OCICE_BlixtHack
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();

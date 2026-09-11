@@ -43,7 +43,7 @@ namespace OCICE_BlixtHack.Controllers
                 ModelState.AddModelError("", "Invalid username or password");
                 return View(model);
             }
-            if (adminTest.Password != model.Password) ;
+            if (adminTest.Password != model.Password)
             {
                 ModelState.AddModelError("", "Invalid username or password");
                 return View(model);
