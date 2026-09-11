@@ -110,6 +110,10 @@
                     </div>
                 </div>
             </article>
+            
+            <div>
+                <form asp-action="DeleteResponse" asp-route-id="@reply.Id"> <input type="submit"value="Delete"/> </form>
+            </div>
 
             i++;
         }

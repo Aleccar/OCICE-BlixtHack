@@ -91,6 +91,13 @@ namespace OCICE_BlixtHack.Controllers
             return RedirectToAction("Topic", new { topicId = topic.Id });
         }
 
+        [HttpPost]
+        public IActionResult DeleteResponse(int id)
+        {
+            var parentId= _topicResponseService.GetParentIdByResponseId(id);
+            return _topicResponseService.DeleteResponseById(id) ? RedirectToAction("Topic", new{topicId = parentId}) : NotFound();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
