@@ -1,6 +1,7 @@
 ﻿using ClassLibrary.Data.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Security.Cryptography;
+using ClassLibrary.Data.Models;
 namespace ClassLibrary.Data;
 
 public class DataInitializer
@@ -137,7 +138,7 @@ public class DataInitializer
         var user = new User
         {
             UserName = "admin",
-            PasswordHash = "0000",
+            Password = "0000",
             IsAdmin = true,
         };
         if (!_context.Categories.Any())

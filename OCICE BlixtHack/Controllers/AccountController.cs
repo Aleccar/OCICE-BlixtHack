@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using OCICE_BlixtHack.Models;
 using System.Security.Claims;
 
@@ -13,16 +14,15 @@ namespace OCICE_BlixtHack.Controllers
     public class AccountController : Controller
     {
         private readonly BlixtHackDbContext _context;
-        private readonly PasswordHasher<User> _passwordHasher;
+        private readonly ILogger<AccountController> _logger;
         public AccountController(BlixtHackDbContext context)
         {
             _context = context;
-            _passwordHasher = new PasswordHasher<User>();
         }
-        //public IActionResult UserLogin(LoginDTO ul)
-        //{
-        //    return View();
-        //}
+        public IActionResult UserLogin(LoginDTO ul)
+        {
+            return View();
+        }
         [HttpGet]
         public IActionResult Login()
         {
@@ -36,24 +36,22 @@ namespace OCICE_BlixtHack.Controllers
             {
                 return View(model);
             }
-            var admin = _context.Users.FirstOrDefault(u => u.UserName == model.UserName);
+            var adminTest = _context.Users.FirstOrDefault(u => u.UserName == model.UserName);
 
-            if (admin == null || admin.IsAdmin == false)
+            if (adminTest == null || adminTest.IsAdmin == false)
             {
                 ModelState.AddModelError("", "Invalid username or password");
                 return View(model);
             }
-            var result = _passwordHasher.VerifyHashedPassword(
-                admin, admin.PasswordHash, model.Password);
-            if (result == PasswordVerificationResult.Failed)
+            if (adminTest.Password != model.Password) ;
             {
                 ModelState.AddModelError("", "Invalid username or password");
                 return View(model);
             }
             var claims = new List<Claim> //TODO:kolla upp
             {
-            new Claim(ClaimTypes.NameIdentifier, admin.UserId.ToString()),
-            new Claim(ClaimTypes.Name, admin.UserName),
+            new Claim(ClaimTypes.NameIdentifier, adminTest.UserId.ToString()),
+            new Claim(ClaimTypes.Name, adminTest.UserName),
             new Claim(ClaimTypes.Role, "Admin")
             };
 
