@@ -10,4 +10,5 @@ public interface ITopicService {
     void IncrementViewByTopicId(int topicId);
     Topic CreateTopic(TopicDTO topicDTO, Category category);
     IEnumerable<Topic> GetLatestActiveTopics(int topicAmountToDisplay);
+    IEnumerable<Topic> GetMostViewedTopics(int topicAmountToDisplay);
 }

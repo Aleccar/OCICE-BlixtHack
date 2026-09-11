@@ -6,4 +6,5 @@ public class IndexTopicsVM
 {
     public IEnumerable<Topic> LatestTopics { get; set; }
     public IEnumerable<Topic> LatestActiveTopics { get; set; }
+    public IEnumerable<Topic> MostViewedTopics { get; set; }
 }

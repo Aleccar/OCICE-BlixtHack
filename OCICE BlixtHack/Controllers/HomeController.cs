@@ -27,6 +27,7 @@ namespace OCICE_BlixtHack.Controllers
             {
                 LatestTopics = _topicService.GetRecentTopics(5),
                 LatestActiveTopics = _topicService.GetLatestActiveTopics(5),
+                MostViewedTopics = _topicService.GetMostViewedTopics(5),
             };
 
             return View(indexTopicsVM);
