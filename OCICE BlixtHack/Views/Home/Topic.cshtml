@@ -5,142 +5,181 @@
 <html lang="se-sv">
 <head>
     <title>@Model.Topic</title>
-    <link rel="stylesheet" href="~/css/PageView.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/PageView.css" asp-append-version="true" />
 </head>
 <body>
-<div class="align-content-center ">
+    <div class="align-content-center ">
 
-    <article class="card">
+        <article class="card">
 
-        <h1 class="card-header card-title">
-            @Model.Topic.Title
-        </h1>
-        <div class="card-body">
+            <h1 class="card-header card-title">
+                @Model.Topic.Title
+            </h1>
+            <div class="card-body">
 
-            <p class="mt-1">
-                @Model.Topic.BodyText
-            </p>
+                <p class="mt-1">
+                    @Model.Topic.BodyText
+                </p>
 
-            <div class="card-footer mt-1 container">
-                <div class="row">
-                    <div class="col">
-                        <p>Skrivet av: @Model.Topic.Alias</p>
-                    </div>
-                    <div class="col text-center">
-                        <p>Visningar: @Model.Topic.Views</p>
-                    </div>
-                    <div class="col text-end">
-                        <p>@Model.Topic.CreatedAt.ToShortDateString() @Model.Topic.CreatedAt.ToShortTimeString()</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </article>
-    
-    <!-- Toggle createResponseModal Modal -->
-    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#createResponseModal">
-        Skriv Svar
-    </button>
-    <!-- Toggle topicDeleteConfirmation Modal -->
-    <button type="button" class="btn btn-standard-colour mt-2" data-bs-toggle="modal" data-bs-target="#topicDeleteConfirmation">
-        Ta Bort Tråd
-    </button>
-
-    <!-- Confirm Hard-Delete Modal -->
-    <div class="modal fade" id="topicDeleteConfirmation" tabindex="-1" aria-labelledby="topicDeleteConfirmation"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content container">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="confirmModalLabel">Är du säker att du vill PERMANENT TA BORT DENNA TRÅD?</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5 style="color: black" class="text-center">"@Model.Topic.Title"</h5>
-                    <p style="color: red" class="text-center">OBS: Alla svar kommer också tas bort!</p>
-
-                    <div class="col">
-                        <div class="row">
-                            <div class="form-group text-center">
-                                <form asp-controller="Home" asp-action="RemoveTopic" asp-route-topicId="@Model.Topic.Id">
-                                    <button type="button" class="btn btn-lg btn-standard-colour" data-bs-dismiss="modal">NEJ</button>
-                                    <input type="submit" class="btn btn-lg btn-standard-colour" value="JA">
-                                </form>
-                            </div>
+                <div class="card-footer mt-1 container">
+                    <div class="row">
+                        <div class="col">
+                            <p>Skrivet av: @Model.Topic.Alias</p>
+                        </div>
+                        <div class="col text-center">
+                            <p>Visningar: @Model.Topic.Views</p>
+                        </div>
+                        <div class="col text-end">
+                            <p>@Model.Topic.CreatedAt.ToShortDateString() @Model.Topic.CreatedAt.ToShortTimeString()</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="createResponseModal" tabindex="-1" aria-labelledby="createResponseModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title fs-10" id="createResponseModalLabel">Skriv Svar</h2>
-                </div>
-
-                <div class="modal-body container">
-                    <form method="post">
-                        <div class="row">
-                            <div class="col">
-                                <div class="input-left mb-2">
-                                    <label asp-for="TopicResponseCreateDTO.CommentBody"
-                                           class="control-label">Svar</label>
-                                </div>
-                                <textarea asp-for="TopicResponseCreateDTO.CommentBody" class="form-control" rows="10"
-                                          placeholder="Skriv ett svar..."></textarea>
-                                <span asp-validation-for="TopicResponseCreateDTO.CommentBody" style="color:red"
-                                      class="field-validation-error"></span>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="input-left mb-2 float-end">
-                                    <label asp-for="TopicResponseCreateDTO.ResponderAlias"
-                                           class="control-label">Alias</label>
-                                </div>
-                                <input asp-for="TopicResponseCreateDTO.ResponderAlias" type="text" class="form-control"
-                                       placeholder="Alias"/>
-                                <span asp-validation-for="TopicResponseCreateDTO.ResponderAlias" style="color:red"
-                                      class="field-validation-error"></span>
-                            </div>
-                        </div>
-
-                        <input type="hidden" asp-for="TopicResponseCreateDTO.TopicParentId" value="@Model.Topic.Id"/>
-
-                        <div class="form-group text-center">
-                            <input type="submit" class="btn btn-lg btn-standard-colour mt-3" value="Spara Svar">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @foreach (var reply in Model.TopicResponses) {
-        <article class="card mt-2">
-            <p class="card-body">
-                @reply.CommentBody
-            </p>
-
-            <div class="card-footer mt-1 container">
-                <div class="row">
-                    <div class="col">
-                        <p>Respondent: @reply.ResponderAlias</p>
-                    </div>
-                    <div class="col text-end">
-                        <p>@reply.CreatedAt.ToShortDateString() @reply.CreatedAt.ToShortTimeString()</p>
-                    </div>
-                </div>
             </div>
         </article>
-    }
 
-</div>
+        <!-- Toggle createResponseModal Modal -->
+        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#createResponseModal">
+            Skriv Svar
+        </button>
+        @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+        {
+            <!-- Toggle topicDeleteConfirmation Modal -->
+            <button type="button" class="btn btn-standard-colour mt-2" data-bs-toggle="modal" data-bs-target="#topicDeleteConfirmation">
+                Ta bort tråd
+            </button>
+        }
+        <!-- Confirm Topic Hard-Delete Modal -->
+        <div class="modal fade" id="topicDeleteConfirmation" tabindex="-1" aria-labelledby="topicDeleteConfirmation"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content container">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="confirmModalLabel">Är du säker att du vill PERMANENT TA BORT DENNA TRÅD?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 style="color: black" class="text-center">"@Model.Topic.Title"</h5>
+                        <p style="color: red" class="text-center">OBS: Alla svar kommer också tas bort!</p>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="form-group text-center">
+                                    <form asp-controller="Home" asp-action="RemoveTopic" asp-route-topicId="@Model.Topic.Id">
+                                        <button type="button" class="btn btn-lg btn-standard-colour" data-bs-dismiss="modal">NEJ</button>
+                                        <input type="submit" class="btn btn-lg btn-standard-colour" value="JA">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="createResponseModal" tabindex="-1" aria-labelledby="createResponseModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-10" id="createResponseModalLabel">Skriv Svar</h2>
+                    </div>
+
+                    <div class="modal-body container">
+                        <form method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-left mb-2">
+                                        <label asp-for="TopicResponseCreateDTO.CommentBody"
+                                               class="control-label">Svar</label>
+                                    </div>
+                                    <textarea asp-for="TopicResponseCreateDTO.CommentBody" class="form-control" rows="10"
+                                              placeholder="Skriv ett svar..."></textarea>
+                                    <span asp-validation-for="TopicResponseCreateDTO.CommentBody" style="color:red"
+                                          class="field-validation-error"></span>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-left mb-2 float-end">
+                                        <label asp-for="TopicResponseCreateDTO.ResponderAlias"
+                                               class="control-label">Alias</label>
+                                    </div>
+                                    <input asp-for="TopicResponseCreateDTO.ResponderAlias" type="text" class="form-control"
+                                           placeholder="Alias" />
+                                    <span asp-validation-for="TopicResponseCreateDTO.ResponderAlias" style="color:red"
+                                          class="field-validation-error"></span>
+                                </div>
+                            </div>
+
+                            <input type="hidden" asp-for="TopicResponseCreateDTO.TopicParentId" value="@Model.Topic.Id" />
+
+                            <div class="form-group text-center">
+                                <input type="submit" class="btn btn-lg btn-standard-colour mt-3" value="Spara Svar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @foreach (var reply in Model.TopicResponses)
+        {
+            <article class="card mt-2">
+                <p class="card-body">
+                    @reply.CommentBody
+                </p>
+
+                <div class="card-footer mt-1 container">
+                    <div class="row">
+                        <div class="col">
+                            <p>Respondent: @reply.ResponderAlias</p>
+                        </div>
+                        <div class="col text-end">
+                            <p>@reply.CreatedAt.ToShortDateString() @reply.CreatedAt.ToShortTimeString()</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+            {
+                <button type="button" class="btn btn-standard-colour mt-2" data-bs-toggle="modal" data-bs-target="#replyDeleteConfirmation-@reply.Id" asp-action="DeleteResponse" asp-route-id="@reply.Id">
+                    Ta bort inlägg
+                </button>
+                <!-- Confirm Reply Hard-Delete Modal -->
+                <div class="modal fade" id="replyDeleteConfirmation-@reply.Id" tabindex="-1" aria-labelledby="replyDeleteConfirmation-@reply.Id"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content container">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="confirmModalLabel">Är du säker att du vill PERMANENT TA BORT DETTA SVAR?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5 style="color: black" class="text-center">
+                                    " @(reply.CommentBody?.Length > 50
+                                            ? reply.CommentBody.Substring(0, 50) + "..."
+                                            : reply.CommentBody)"                                             
+                                </h5>
+
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="form-group text-center">
+                                            <form asp-controller="Home" asp-action="DeleteResponse" asp-route-Id="@reply.Id">
+                                                <button type="button" class="btn btn-lg btn-standard-colour" data-bs-dismiss="modal">NEJ</button>
+                                                <input type="submit" class="btn btn-lg btn-standard-colour" value="JA">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
 </body>
 </html>
