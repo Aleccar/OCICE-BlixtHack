@@ -144,11 +144,11 @@
             </article>
             @if (ViewContext.HttpContext.User.IsInRole("Admin"))
             {
-                <button type="button" class="btn btn-standard-colour mt-2" data-bs-toggle="modal" data-bs-target="#replyDeleteConfirmation" asp-action="DeleteResponse" asp-route-id="@reply.Id">
+                <button type="button" class="btn btn-standard-colour mt-2" data-bs-toggle="modal" data-bs-target="#replyDeleteConfirmation-@reply.Id" asp-action="DeleteResponse" asp-route-id="@reply.Id">
                     Ta bort inlägg
                 </button>
                 <!-- Confirm Reply Hard-Delete Modal -->
-                <div class="modal fade" id="replyDeleteConfirmation" tabindex="-1" aria-labelledby="replyDeleteConfirmation"
+                <div class="modal fade" id="replyDeleteConfirmation-@reply.Id" tabindex="-1" aria-labelledby="replyDeleteConfirmation-@reply.Id"
                      aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content container">
@@ -160,8 +160,7 @@
                                 <h5 style="color: black" class="text-center">
                                     " @(reply.CommentBody?.Length > 50
                                             ? reply.CommentBody.Substring(0, 50) + "..."
-                                            : reply.CommentBody)" 
-                                            Id: @reply.Id
+                                            : reply.CommentBody)"                                             
                                 </h5>
 
                                 <div class="col">
