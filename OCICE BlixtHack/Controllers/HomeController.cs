@@ -83,7 +83,8 @@ namespace OCICE_BlixtHack.Controllers
         public IActionResult AddTopic(CreateTopicModalVM modelVM)
         {
             if (!ModelState.IsValid) {
-                return RedirectToAction("Index");
+                modelVM.Categories = _categoryService.GetAllCategories();
+                return PartialView("Components/CreateTopicModal/Default", modelVM);
             }
 
             var createdTopic = modelVM.CreateTopicDTO;
@@ -93,6 +94,13 @@ namespace OCICE_BlixtHack.Controllers
             return RedirectToAction("Topic", new { topicId = topic.Id });
         }
 
+        [HttpPost]
+        public IActionResult DeleteResponse(int id)
+        {
+            var parentId= _topicResponseService.GetParentIdByResponseId(id);
+            return _topicResponseService.DeleteResponseById(id) ? RedirectToAction("Topic", new{topicId = parentId}) : NotFound();
+        }
+        
         [HttpPost]
         public IActionResult RemoveTopic(int topicId)
         {
