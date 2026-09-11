@@ -2,6 +2,7 @@ using ClassLibrary.Data;
 using ClassLibrary.Data.Models;
 using ClassLibrary.DTOs;
 using ClassLibrary.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OCICE_BlixtHack.Models;
@@ -98,14 +99,16 @@ namespace OCICE_BlixtHack.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteResponse(int id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteResponse(int id) //TODO: move to AdminController
         {
             var parentId= _topicResponseService.GetParentIdByResponseId(id);
             return _topicResponseService.DeleteResponseById(id) ? RedirectToAction("Topic", new{topicId = parentId}) : NotFound();
         }
         
         [HttpPost]
-        public IActionResult RemoveTopic(int topicId)
+        [Authorize(Roles = "Admin")]
+        public IActionResult RemoveTopic(int topicId) //TODO: move to AdminController
         {
             var topicCategoryId = _topicService.GetTopicByTopicId(topicId).TopicCategory.Id;
             _topicService.DeleteTopicAndResponses(topicId);

@@ -1,11 +1,8 @@
 ﻿using ClassLibrary.Data;
-using ClassLibrary.Data.Models;
 using ClassLibrary.DTOs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using OCICE_BlixtHack.Models;
 using System.Security.Claims;
 
@@ -14,15 +11,14 @@ namespace OCICE_BlixtHack.Controllers
     public class AccountController : Controller
     {
         private readonly BlixtHackDbContext _context;
-        private readonly ILogger<AccountController> _logger;
         public AccountController(BlixtHackDbContext context)
         {
             _context = context;
         }
-        public IActionResult UserLogin(LoginDTO ul)
-        {
-            return View();
-        }
+        //public IActionResult UserLogin(LoginDTO ul)
+        //{
+        //    return View();
+        //}
         [HttpGet]
         public IActionResult Login()
         {
@@ -67,6 +63,8 @@ namespace OCICE_BlixtHack.Controllers
 
             return RedirectToAction("Index", "Home"); //TODO: skickar med Role: "Admin"
         }
+        [HttpGet]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -74,7 +72,7 @@ namespace OCICE_BlixtHack.Controllers
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult AccessDenied()
