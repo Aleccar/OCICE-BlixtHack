@@ -1,4 +1,5 @@
 using ClassLibrary.Data;
+using ClassLibrary.Data.Models;
 using ClassLibrary.Services;
 using Microsoft.AspNetCore.Mvc;
 using OCICE_BlixtHack.Models;
@@ -20,6 +21,7 @@ namespace OCICE_BlixtHack.Controllers
             _topicResponseService = responceService;
             _context = context;
         }
+
         public IActionResult Index()
         {
             var categoryVM = new CategoriesVM();
@@ -31,6 +33,7 @@ namespace OCICE_BlixtHack.Controllers
         {
             return View();
         }
+
         public IActionResult Categories()
         {
             var categoryVM = new CategoriesVM();
@@ -49,6 +52,7 @@ namespace OCICE_BlixtHack.Controllers
 
             return View(topicsVM);
         }
+
         public IActionResult Topic(int topicId)
         {
             var topicResponseVM = new TopicResponseVM
@@ -56,7 +60,7 @@ namespace OCICE_BlixtHack.Controllers
                 Topic = _topicService.GetTopicByTopicId(topicId),
                 TopicResponses = _topicResponseService.GetAllTopicResponsesByTopicId(topicId),
             };
-            
+
             _topicService.IncrementViewByTopicId(topicId);
             return View(topicResponseVM);
         }
@@ -65,10 +69,9 @@ namespace OCICE_BlixtHack.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Topic(TopicResponseVM topicResponseVM)
         {
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 _topicResponseService.CreateResponseByTopic(topicResponseVM.TopicResponseCreateDTO);
-                return RedirectToAction("Topic", new {topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId});
+                return RedirectToAction("Topic", new { topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId });
             }
 
             topicResponseVM.Topic = _topicService.GetTopicByTopicId(topicResponseVM.TopicResponseCreateDTO.TopicParentId);
@@ -96,6 +99,14 @@ namespace OCICE_BlixtHack.Controllers
         {
             var parentId= _topicResponseService.GetParentIdByResponseId(id);
             return _topicResponseService.DeleteResponseById(id) ? RedirectToAction("Topic", new{topicId = parentId}) : NotFound();
+        }
+        
+        [HttpPost]
+        public IActionResult RemoveTopic(int topicId)
+        {
+            var topicCategoryId = _topicService.GetTopicByTopicId(topicId).TopicCategory.Id;
+            _topicService.DeleteTopicAndResponses(topicId);
+            return RedirectToAction("Category", new { categoryId = topicCategoryId });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
