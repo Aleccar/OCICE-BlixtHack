@@ -1,6 +1,7 @@
 ﻿using ClassLibrary.Data;
 using ClassLibrary.Data.Models;
 using ClassLibrary.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassLibrary.Services
 {
@@ -49,9 +50,11 @@ namespace ClassLibrary.Services
 
         public int GetParentIdByResponseId(int id)
         {
-            var parentId = _context.Topics.FirstOrDefault(t => t.Id == id);
+            var topicResponse = _context.TopicsResponses
+                .Include(tr => tr.TopicParent)
+                .First(tr => tr.Id == id );
 
-            return parentId.Id;
+            return  topicResponse.TopicParent.Id;
         }
     }
 }
