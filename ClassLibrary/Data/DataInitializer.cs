@@ -137,7 +137,7 @@ public class DataInitializer
         var user = new User
         {
             UserName = "admin",
-            Password = "0000",
+            PasswordHash = "0000",
             IsAdmin = true,
         };
         if (!_context.Categories.Any())

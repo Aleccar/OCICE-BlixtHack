@@ -9,7 +9,7 @@ namespace ClassLibrary.Data.Models
     {
         public int UserId { get; set; }
         [Required] [MaxLength(50)] public string UserName { get; set; }
-        [Required][MaxLength(20)] public string Password { get; set; }
+        [Required][MaxLength(20)] public string PasswordHash { get; set; }
         [Required] public bool IsAdmin { get; set; }
     }
 }
