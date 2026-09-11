@@ -1,6 +1,8 @@
 using ClassLibrary.Data;
 using ClassLibrary.Data.Models;
+using ClassLibrary.DTOs;
 using ClassLibrary.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OCICE_BlixtHack.Models;
 using System.Diagnostics;
@@ -69,7 +71,8 @@ namespace OCICE_BlixtHack.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Topic(TopicResponseVM topicResponseVM)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 _topicResponseService.CreateResponseByTopic(topicResponseVM.TopicResponseCreateDTO);
                 return RedirectToAction("Topic", new { topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId });
             }
@@ -109,6 +112,7 @@ namespace OCICE_BlixtHack.Controllers
             return RedirectToAction("Category", new { categoryId = topicCategoryId });
         }
 
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
