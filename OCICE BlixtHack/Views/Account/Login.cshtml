@@ -1,25 +1,38 @@
 ﻿@model UserLoginVm
+<!DOCTYPE html>
 
-<h2>Login</h2>
+<html lang="se-sv">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/PageView.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
 
-<form asp-action="Login" method="post">
-    @Html.AntiForgeryToken()
+        <form asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
 
-    <div>
-        <label asp-for="UserName"></label>
-        <input asp-for="UserName" />
-        <span asp-validation-for="UserName"></span>
+            <div>
+                <label asp-for="UserName">Användarnamn</label>
+                <div>
+                    <input asp-for="UserName" placeholder="Användarnamn" />
+                    <span asp-validation-for="UserName"></span>
+                </div>
+            </div>
+            <div>
+                <label asp-for="Password">Lösenord</label>
+                <div>
+                    <input asp-for="Password" type="password" placeholder="Lösenord" />
+                    <span asp-validation-for="Password" style="color:red"></span>
+                </div>
+            </div>
+
+            <button class="btn btn-standard-colour" type="submit">Logga in</button>
+        </form>
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }
     </div>
-
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-
-    <button type="submit">Logga in</button>
-</form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+</body>
+</html>
