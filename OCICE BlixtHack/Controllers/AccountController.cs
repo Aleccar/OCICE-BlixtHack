@@ -48,7 +48,7 @@ namespace OCICE_BlixtHack.Controllers
                 ModelState.AddModelError("", "Invalid username or password");
                 return View(model);
             }
-            var claims = new List<Claim> //TODO:kolla upp
+            var claims = new List<Claim> //TODO:kolla upp 
             {
             new Claim(ClaimTypes.NameIdentifier, adminTest.UserId.ToString()),
             new Claim(ClaimTypes.Name, adminTest.UserName),
@@ -65,7 +65,7 @@ namespace OCICE_BlixtHack.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 principal);
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Home"); //TODO: skickar med Role: "Admin"
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
