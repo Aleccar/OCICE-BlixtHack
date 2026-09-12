@@ -1,7 +1,5 @@
 ﻿using ClassLibrary.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using ClassLibrary.Data.Models;
 namespace ClassLibrary.Data;
 
 public class DataInitializer

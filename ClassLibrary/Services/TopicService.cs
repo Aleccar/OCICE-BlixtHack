@@ -14,9 +14,12 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
         return topics;
     }
 
-    public IEnumerable<Topic> GetRecentTopics()
+    public IEnumerable<Topic> GetRecentTopics(int topicAmountToDisplay)
     {
-        throw new NotImplementedException(); //TODO
+        return _context.Topics
+            .Include(t => t.TopicResponses)
+            .Include(t => t.TopicCategory)
+            .OrderByDescending(t => t.CreatedAt).Take(topicAmountToDisplay);
     }
 
     public Topic GetTopicByTopicId(int id)
@@ -48,6 +51,24 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
         _context.Topics.Add(topicDB);
         _context.SaveChanges();
         return topicDB;
+    }
+
+    public IEnumerable<Topic> GetLatestActiveTopics(int topicAmountToDisplay)
+    {
+        return _context.Topics
+            .Include(t => t.TopicResponses)
+            .Include(t => t.TopicCategory)
+            .OrderByDescending(t => t.TopicResponses.Max(tr => tr.CreatedAt))
+            .Take(topicAmountToDisplay);
+    }
+
+    public IEnumerable<Topic> GetMostViewedTopics(int topicAmountToDisplay)
+    {
+        return _context.Topics
+            .Include(t => t.TopicResponses)
+            .Include(t => t.TopicCategory)
+            .OrderByDescending(t => t.Views)
+            .Take(topicAmountToDisplay);
     }
 
     public void DeleteTopicAndResponses(int topicId)
