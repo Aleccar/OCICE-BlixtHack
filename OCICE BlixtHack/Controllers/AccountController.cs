@@ -15,15 +15,13 @@ namespace OCICE_BlixtHack.Controllers
         {
             _context = context;
         }
-        //public IActionResult UserLogin(LoginDTO ul)
-        //{
-        //    return View();
-        //}
+
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginVm model)
@@ -32,6 +30,7 @@ namespace OCICE_BlixtHack.Controllers
             {
                 return View(model);
             }
+
             var adminTest = _context.Users.FirstOrDefault(u => u.UserName == model.UserName);
 
             if (adminTest == null || adminTest.IsAdmin == false)
@@ -39,11 +38,13 @@ namespace OCICE_BlixtHack.Controllers
                 ModelState.AddModelError("", "Invalid username or password");
                 return View(model);
             }
+
             if (adminTest.Password != model.Password)
             {
                 ModelState.AddModelError("", "Invalid username or password");
                 return View(model);
             }
+
             var claims = new List<Claim> //TODO:kolla upp 
             {
             new Claim(ClaimTypes.NameIdentifier, adminTest.UserId.ToString()),
@@ -63,8 +64,8 @@ namespace OCICE_BlixtHack.Controllers
 
             return RedirectToAction("Index", "Home"); //TODO: skickar med Role: "Admin"
         }
-        [HttpGet]
-        
+
+        [HttpGet] // Är det GET eller POST? Rätt säker på att båda inte behövs.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

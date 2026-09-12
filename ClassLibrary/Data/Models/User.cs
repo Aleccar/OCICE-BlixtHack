@@ -14,6 +14,5 @@ namespace ClassLibrary.Data.Models
         [Required][MaxLength(50)] public string UserName { get; set; }
         [Required] public string Password { get; set; }
         [Required] public bool IsAdmin { get; set; }
-
     }
 }

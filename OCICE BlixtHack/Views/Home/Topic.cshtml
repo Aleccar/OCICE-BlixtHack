@@ -136,7 +136,6 @@
 
             <div class="response-row @rowClass">
 
-            
                 <article class="card mt-4 response-card">
                     <p class="card-body">
                         @reply.CommentBody
@@ -170,9 +169,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <h5 style="color: black" class="text-center">
-                                        " @(reply.CommentBody?.Length > 50
-                                                                                                                                                            ? reply.CommentBody.Substring(0, 50) + "..."
-                                                                                                                                                            : reply.CommentBody)"
+                                        " @(reply.CommentBody?.Length > 50 ? reply.CommentBody.Substring(0, 50) + "..." : reply.CommentBody)"
                                     </h5>
 
                                     <div class="col">

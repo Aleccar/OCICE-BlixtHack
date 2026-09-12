@@ -31,8 +31,6 @@ namespace ClassLibrary.Services
             _context.Add(topicResponseDb);
             _context.SaveChanges();
         }
-
-        
         
         public bool DeleteResponseById(int id)
         {
