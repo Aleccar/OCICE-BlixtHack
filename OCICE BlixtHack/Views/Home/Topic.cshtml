@@ -6,11 +6,13 @@
 <head>
     <title>@Model.Topic</title>
     <link rel="stylesheet" href="~/css/PageView.css" asp-append-version="true" />
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
     <div class="align-content-center ">
 
-        <article class="card">
+        <article class="card main-card">
 
             <h1 class="card-header card-title">
                 @Model.Topic.Title
@@ -39,13 +41,13 @@
         </article>
 
         <!-- Toggle createResponseModal Modal -->
-        <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#createResponseModal">
+        <button type="button" class="btn btn-standard-colour mt-4 answer-button float-end" data-bs-toggle="modal" data-bs-target="#createResponseModal">
             Skriv Svar
         </button>
         @if (ViewContext.HttpContext.User.IsInRole("Admin"))
         {
             <!-- Toggle topicDeleteConfirmation Modal -->
-            <button type="button" class="btn btn-standard-colour mt-2" data-bs-toggle="modal" data-bs-target="#topicDeleteConfirmation">
+            <button type="button" class="btn remove-button mt-4 answer-button" data-bs-toggle="modal" data-bs-target="#topicDeleteConfirmation">
                 Ta bort tråd
             </button>
         }
@@ -124,62 +126,96 @@
             </div>
         </div>
 
+        @{
+            int i = 0;
+        }
+
         @foreach (var reply in Model.TopicResponses)
         {
-            <article class="card mt-2">
-                <p class="card-body">
-                    @reply.CommentBody
-                </p>
+            var rowClass = i % 2 == 0 ? "row-left" : "row-right";
 
-                <div class="card-footer mt-1 container">
-                    <div class="row">
-                        <div class="col">
-                            <p>Respondent: @reply.ResponderAlias</p>
-                        </div>
-                        <div class="col text-end">
-                            <p>@reply.CreatedAt.ToShortDateString() @reply.CreatedAt.ToShortTimeString()</p>
+            <div class="response-row @rowClass">
+
+            
+                <article class="card mt-4 response-card">
+                    <p class="card-body">
+                        @reply.CommentBody
+                    </p>
+
+                    <div class="card-footer mt-1 container">
+                        <div class="row">
+                            <div class="col">
+                                <p>Respondent: @reply.ResponderAlias</p>
+                            </div>
+                            <div class="col text-end">
+                                <p>@reply.CreatedAt.ToShortDateString() @reply.CreatedAt.ToShortTimeString()</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </article>
-            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-            {
-                <button type="button" class="btn btn-standard-colour mt-2" data-bs-toggle="modal" data-bs-target="#replyDeleteConfirmation-@reply.Id" asp-action="DeleteResponse" asp-route-id="@reply.Id">
-                    Ta bort inlägg
-                </button>
-                <!-- Confirm Reply Hard-Delete Modal -->
-                <div class="modal fade" id="replyDeleteConfirmation-@reply.Id" tabindex="-1" aria-labelledby="replyDeleteConfirmation-@reply.Id"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content container">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="confirmModalLabel">Är du säker att du vill PERMANENT TA BORT DETTA SVAR?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5 style="color: black" class="text-center">
-                                    " @(reply.CommentBody?.Length > 50
-                                            ? reply.CommentBody.Substring(0, 50) + "..."
-                                            : reply.CommentBody)"                                             
-                                </h5>
+                </article>
 
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="form-group text-center">
-                                            <form asp-controller="Home" asp-action="DeleteResponse" asp-route-Id="@reply.Id">
-                                                <button type="button" class="btn btn-lg btn-standard-colour" data-bs-dismiss="modal">NEJ</button>
-                                                <input type="submit" class="btn btn-lg btn-standard-colour" value="JA">
-                                            </form>
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                    <button type="button" class="btn btn-circle remove-button" data-bs-toggle="modal" data-bs-target="#replyDeleteConfirmation-@reply.Id" asp-action="DeleteResponse" asp-route-id="@reply.Id">
+                        Radera <br /> Svar
+                    </button>
+                    <!-- Confirm Reply Hard-Delete Modal -->
+                    <div class="modal fade" id="replyDeleteConfirmation-@reply.Id" tabindex="-1" aria-labelledby="replyDeleteConfirmation-@reply.Id"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content container">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="confirmModalLabel">Är du säker att du vill PERMANENT TA BORT DETTA SVAR?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5 style="color: black" class="text-center">
+                                        " @(reply.CommentBody?.Length > 50
+                                                                                                                                                            ? reply.CommentBody.Substring(0, 50) + "..."
+                                                                                                                                                            : reply.CommentBody)"
+                                    </h5>
+
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="form-group text-center">
+                                                <form asp-controller="Home" asp-action="DeleteResponse" asp-route-Id="@reply.Id">
+                                                    <button type="button" class="btn btn-lg btn-standard-colour" data-bs-dismiss="modal">NEJ</button>
+                                                    <input type="submit" class="btn btn-lg btn-standard-colour" value="JA">
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
+            i++;
         }
-
     </div>
+
+    <script>
+            document.getElementById('responseForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const form = e.target;
+                const formData = new FormData(form);
+
+                const response = await fetch(form.action || window.location.href, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    const html = await response.text();
+                    const doc = new DOMParser().parseFromString(html, 'text/html');
+                    const newForm = doc.getElementById('responseForm');
+                    form.innerHTML = newForm.innerHTML;
+                }
+            });
+    </script>
 </body>
 </html>

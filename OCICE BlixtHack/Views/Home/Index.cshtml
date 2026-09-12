@@ -10,98 +10,104 @@
     <link rel="stylesheet" href="~/css/PageView.css" asp-append-version="true" />
 </head>
 <body>
-<h2 class="text-center">Senaste Skapade Trådar</h2>
-<table class="table table-hover table-borderless transparent-table">
-    <thead>
-    <tr>
-        <th>Rubrik</th>
-        <th>Kategori</th>
-        <th>Skrivet av</th>
-        <th class="text-center">Visningar</th>
-        <th class="text-center">Antal Svar</th>
-        <th></th>
-        <th>Datum</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var topic in Model.LatestTopics) {
-        <tr class="position-relative ">
+    <h2 class="text-center mt-3">Senaste Skapade Trådar</h2>
+    <table class="table table-hover table-borderless transparent-table">
+        <thead>
+            <tr>
+                <th>Rubrik</th>
+                <th>Kategori</th>
+                <th>Skrivet av</th>
+                <th class="text-center">Visningar</th>
+                <th class="text-center">Antal Svar</th>
+                <th></th>
+                <th>Datum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var topic in Model.LatestTopics)
+            {
+                <tr class="position-relative ">
 
-            <td class="col-5">@topic.Title</td>
-            <td>@topic.TopicCategory.Title</td>
-            <td>@topic.Alias</td>
-            <td class="text-center">@topic.Views</td>
-            <td class="text-center">@topic.TopicResponses.Count()</td>
-            <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" class="stretched-link"></a>
-            </td>
-            <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
+                    <td class="col-5">@topic.Title</td>
+                    <td>@topic.TopicCategory.Title</td>
+                    <td>@topic.Alias</td>
+                    <td class="text-center">@topic.Views</td>
+                    <td class="text-center">@topic.TopicResponses.Count()</td>
+                    <td>
+                        <a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" asp-route-incrementViews="true" class="stretched-link"></a>
+                    </td>
+                    <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
 
-        </tr>
-    }
-    </tbody>
-</table>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<h2 class="text-center">Senaste Svarade Trådar</h2>
-<table class="table table-hover table-borderless transparent-table">
-    <thead>
-    <tr>
-        <th>Rubrik</th>
-        <th>Kategori</th>
-        <th>Skrivet av</th>
-        <th class="text-center">Visningar</th>
-        <th class="text-center">Antal Svar</th>
-        <th></th>
-        <th>Datum</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var topic in Model.LatestActiveTopics) {
-        <tr class="position-relative ">
-    
-            <td class="col-5">@topic.Title</td>
-            <td>@topic.TopicCategory.Title</td>
-            <td>@topic.Alias</td>
-            <td class="text-center">@topic.Views</td>
-            <td class="text-center">@topic.TopicResponses.Count()</td>
-            <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" class="stretched-link"></a>
-            </td>
-            <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
-    
-        </tr>
-    }
-    </tbody>
-</table>
+    <h2 class="text-center">Senaste Svarade Trådar</h2>
+    <table class="table table-hover table-borderless transparent-table">
+        <thead>
+            <tr>
+                <th>Rubrik</th>
+                <th>Kategori</th>
+                <th>Skrivet av</th>
+                <th class="text-center">Visningar</th>
+                <th class="text-center">Antal Svar</th>
+                <th></th>
+                <th>Datum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var topic in Model.LatestActiveTopics)
+            {
+                <tr class="position-relative ">
 
-<h2 class="text-center">Mest Klickade Trådar</h2>
-<table class="table table-hover table-borderless transparent-table">
-    <thead>
-    <tr>
-        <th>Rubrik</th>
-        <th>Kategori</th>
-        <th>Skrivet av</th>
-        <th class="text-center">Visningar</th>
-        <th class="text-center">Antal Svar</th>
-        <th></th>
-        <th>Datum</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var topic in Model.MostViewedTopics) {
-        <tr class="position-relative ">
-    
-            <td class="col-5">@topic.Title</td>
-            <td>@topic.TopicCategory.Title</td>
-            <td>@topic.Alias</td>
-            <td class="text-center">@topic.Views</td>
-            <td class="text-center">@topic.TopicResponses.Count()</td>
-            <td><a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" class="stretched-link"></a>
-            </td>
-            <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
-    
-        </tr>
-    }
-    </tbody>
-</table>
+                    <td class="col-5">@topic.Title</td>
+                    <td>@topic.TopicCategory.Title</td>
+                    <td>@topic.Alias</td>
+                    <td class="text-center">@topic.Views</td>
+                    <td class="text-center">@topic.TopicResponses.Count()</td>
+                    <td>
+                        <a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" asp-route-incrementViews="true" class="stretched-link"></a>
+                    </td>
+                    <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2 class="text-center">Mest Klickade Trådar</h2>
+    <table class="table table-hover table-borderless transparent-table">
+        <thead>
+            <tr>
+                <th>Rubrik</th>
+                <th>Kategori</th>
+                <th>Skrivet av</th>
+                <th class="text-center">Visningar</th>
+                <th class="text-center">Antal Svar</th>
+                <th></th>
+                <th>Datum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var topic in Model.MostViewedTopics)
+            {
+                <tr class="position-relative ">
+
+                    <td class="col-5">@topic.Title</td>
+                    <td>@topic.TopicCategory.Title</td>
+                    <td>@topic.Alias</td>
+                    <td class="text-center">@topic.Views</td>
+                    <td class="text-center">@topic.TopicResponses.Count()</td>
+                    <td>
+                        <a asp-action="Topic" asp-controller="Home" asp-route-topicId="@topic.Id" asp-route-incrementViews="true" class="stretched-link"></a>
+                    </td>
+                    <td>@topic.CreatedAt.ToShortDateString() @topic.CreatedAt.ToShortTimeString()</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
 
 </body>
 </html>
