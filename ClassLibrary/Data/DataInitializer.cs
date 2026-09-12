@@ -1,6 +1,5 @@
 ﻿using ClassLibrary.Data.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace ClassLibrary.Data;
 
 public class DataInitializer
@@ -134,6 +133,12 @@ public class DataInitializer
                 CreatedAt= DateTime.Now,
             },
         };
+        var user = new User
+        {
+            UserName = "admin",
+            Password = "0000",
+            IsAdmin = true,
+        };
         if (!_context.Categories.Any())
         {
             _context.Categories.AddRange(categories);
@@ -146,6 +151,10 @@ public class DataInitializer
         if (!_context.TopicsResponses.Any())
         {
             _context.TopicsResponses.AddRange(topicResponses);
+        }
+        if (!_context.Users.Any())
+        {
+            _context.Users.Add(user);
         }
         _context.SaveChanges();
     }

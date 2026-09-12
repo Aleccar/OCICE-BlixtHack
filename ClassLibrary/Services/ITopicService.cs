@@ -11,4 +11,5 @@ public interface ITopicService {
     Topic CreateTopic(TopicDTO topicDTO, Category category);
     IEnumerable<Topic> GetLatestActiveTopics(int topicAmountToDisplay);
     IEnumerable<Topic> GetMostViewedTopics(int topicAmountToDisplay);
+    void DeleteTopicAndResponses(int topicId);
 }

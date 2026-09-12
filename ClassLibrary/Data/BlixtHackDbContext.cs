@@ -7,7 +7,7 @@ public class BlixtHackDbContext : DbContext {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Topic> Topics { get; set; }
     public DbSet<TopicResponse> TopicsResponses { get; set; }
-    
+    public DbSet<User> Users { get; set; }
     public BlixtHackDbContext() {
     }
 

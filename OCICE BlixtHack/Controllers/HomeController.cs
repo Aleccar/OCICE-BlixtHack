@@ -1,5 +1,9 @@
 using ClassLibrary.Data;
+using ClassLibrary.Data.Models;
+using ClassLibrary.DTOs;
 using ClassLibrary.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OCICE_BlixtHack.Models;
 using System.Diagnostics;
@@ -59,7 +63,8 @@ public class HomeController : Controller
 
     public IActionResult Topic(int topicId, bool incrementViews = false)
     {
-        if (incrementViews) {
+        if (incrementViews)
+        {
             _topicService.IncrementViewByTopicId(topicId);
             return RedirectToAction("Topic", new { topicId });
         }
@@ -77,7 +82,8 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Topic(TopicResponseVM topicResponseVM)
     {
-        if (ModelState.IsValid) {
+        if (ModelState.IsValid)
+        {
             _topicResponseService.CreateResponseByTopic(topicResponseVM.TopicResponseCreateDTO);
             return RedirectToAction("Topic", new { topicId = topicResponseVM.TopicResponseCreateDTO.TopicParentId });
         }
@@ -90,7 +96,8 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult AddTopic(CreateTopicModalVM modelVM)
     {
-        if (!ModelState.IsValid) {
+        if (!ModelState.IsValid)
+        {
             modelVM.Categories = _categoryService.GetAllCategories();
             return PartialView("Components/CreateTopicModal/Default", modelVM);
         }
@@ -101,6 +108,24 @@ public class HomeController : Controller
         TempData["success"] = "Lyckades skapa ny tråd!";
         return RedirectToAction("Topic", new { topicId = topic.Id });
     }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public IActionResult DeleteResponse(int id) //TODO: move to AdminController
+    {
+        var parentId = _topicResponseService.GetParentIdByResponseId(id);
+        return _topicResponseService.DeleteResponseById(id) ? RedirectToAction("Topic", new { topicId = parentId }) : NotFound();
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public IActionResult RemoveTopic(int topicId) //TODO: move to AdminController
+    {
+        var topicCategoryId = _topicService.GetTopicByTopicId(topicId).TopicCategory.Id;
+        _topicService.DeleteTopicAndResponses(topicId);
+        return RedirectToAction("Category", new { categoryId = topicCategoryId });
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

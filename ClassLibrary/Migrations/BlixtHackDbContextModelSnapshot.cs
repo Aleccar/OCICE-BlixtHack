@@ -22,7 +22,7 @@ namespace ClassLibrary.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ClassLibrary.Data.Category", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +40,7 @@ namespace ClassLibrary.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.Topic", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Models.Topic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,7 +78,7 @@ namespace ClassLibrary.Migrations
                     b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.TopicResponse", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Models.TopicResponse", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,9 +108,34 @@ namespace ClassLibrary.Migrations
                     b.ToTable("TopicsResponses");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.Topic", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Models.User", b =>
                 {
-                    b.HasOne("ClassLibrary.Data.Category", "TopicCategory")
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ClassLibrary.Data.Models.Topic", b =>
+                {
+                    b.HasOne("ClassLibrary.Data.Models.Category", "TopicCategory")
                         .WithMany("Topics")
                         .HasForeignKey("TopicCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -119,9 +144,9 @@ namespace ClassLibrary.Migrations
                     b.Navigation("TopicCategory");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.TopicResponse", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Models.TopicResponse", b =>
                 {
-                    b.HasOne("ClassLibrary.Data.Topic", "TopicParent")
+                    b.HasOne("ClassLibrary.Data.Models.Topic", "TopicParent")
                         .WithMany("TopicResponses")
                         .HasForeignKey("TopicParentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -130,12 +155,12 @@ namespace ClassLibrary.Migrations
                     b.Navigation("TopicParent");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.Category", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Models.Category", b =>
                 {
                     b.Navigation("Topics");
                 });
 
-            modelBuilder.Entity("ClassLibrary.Data.Topic", b =>
+            modelBuilder.Entity("ClassLibrary.Data.Models.Topic", b =>
                 {
                     b.Navigation("TopicResponses");
                 });

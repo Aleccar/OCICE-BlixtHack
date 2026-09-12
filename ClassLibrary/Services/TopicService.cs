@@ -24,7 +24,10 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
 
     public Topic GetTopicByTopicId(int id)
     {
-        return _context.Topics.First(t => t.Id == id);
+        var topic = _context.Topics
+            .Include(t => t.TopicCategory)
+            .FirstOrDefault(t => t.Id == id);
+        return topic;
     }
 
     public void IncrementViewByTopicId(int topicId)
@@ -66,5 +69,18 @@ public class TopicService(BlixtHackDbContext context) : ITopicService
             .Include(t => t.TopicCategory)
             .OrderByDescending(t => t.Views)
             .Take(topicAmountToDisplay);
+    }
+
+    public void DeleteTopicAndResponses(int topicId)
+    {
+        var topic = _context.Topics.FirstOrDefault(t => t.Id == topicId);
+        if (topic == null) {
+            return;
+        }
+
+        _context.Topics.Remove(topic);
+        var topicResponses = _context.TopicsResponses.Where(tr => tr.TopicParent.Id == topicId);
+        _context.TopicsResponses.RemoveRange(topicResponses);
+        _context.SaveChanges();
     }
 }
