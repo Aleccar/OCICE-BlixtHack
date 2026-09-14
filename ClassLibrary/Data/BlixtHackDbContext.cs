@@ -13,4 +13,11 @@ public class BlixtHackDbContext : DbContext {
 
     public BlixtHackDbContext(DbContextOptions<BlixtHackDbContext> options) : base(options) {
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Category>()
+            .HasIndex(c => c.Title)
+            .IsUnique();
+    }
 }
