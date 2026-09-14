@@ -21,6 +21,7 @@ p {
 table {
     color: #e6ebed;
 }
+
 thead {
     border-top: 2px solid;
     background-color: white;
@@ -36,4 +37,63 @@ thead {
 
 tr {
     border-bottom: 2px solid;
+}
+
+/*TOPIC VIEW SECTION --------------------------------- */
+
+.main-card {
+    margin-top: 1rem;
+    width: 100%;
+    padding-left: 0px;
+    border-radius: 1rem;
+}
+
+.answer-button {
+    padding: .5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: .1rem;
+}
+
+.remove-button {
+    background-color: #ffd700;
+}
+
+    .remove-button:hover {
+        background-color: #c8a900;
+    }
+
+.response-card {
+    border-radius: 1rem;
+}
+
+.response-row {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+    .response-row .response-card {
+        width: 65%;
+        flex: 0 0 65%;
+    }
+
+    .response-row .btn-circle {
+        align-self: center;
+        width: 5rem;
+        height: 5rem;
+        padding: 0;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: .95rem;
+        line-height: 1.2;
+        white-space: normal;
+        font-weight: bold;
+    }
+
+.row-right {
+    flex-direction: row-reverse;
 }

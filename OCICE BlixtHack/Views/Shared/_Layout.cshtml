@@ -65,11 +65,24 @@
     <footer class="footer text-muted @* start-50 translate-middle-x *@">
         <div class="container">
             &copy; 2026 - OCICE_BlixtHack - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+            {               
+                <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-standard-colour mt-2" type="button">Logga ut</button>
+                </form>
+            }
+            else
+            {
+                <button class="btn btn-standard-colour mt-2" type="button" onclick="location.href='@Url.Action("Login", "Account")'">Logga in</button>
+            }
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", false)
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>
